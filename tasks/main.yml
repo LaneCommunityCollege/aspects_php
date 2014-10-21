@@ -1,0 +1,3 @@
+---
+- include: init.yml
+  when: aspects_php_enable == True

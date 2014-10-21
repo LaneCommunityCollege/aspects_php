@@ -1,0 +1,167 @@
+---
+# file: roles/php/tasks/main.yml
+- include: installPackages.yml
+  tags:
+      - aspects_php
+
+- name: Debian - set php.ini options for Apache
+  when:
+    aspects_php_apache_installed == True and
+    aspects_php_config is defined and
+    ansible_os_family == "Debian" and
+    item.value.enable == True and
+    item.value.target.Debian.apache is defined
+  ini_file:
+    state="present"
+    dest="{{ item.value.target.Debian.apache }}"
+    option="{{ item.value.name }}"
+    value="{{ item.value.value }}"
+    section="{{ item.value.section }}"
+    owner=0
+    group=0
+    mode=600
+  with_dict: aspects_php_config
+  notify: restart apache2
+  tags:
+    - aspects_php
+
+- name: Debian - set php.ini options for php-cli
+  when:
+    aspects_php_cli_installed == True and
+    aspects_php_config is defined and
+    ansible_os_family == "Debian" and
+    item.value.enable == True and
+    item.value.target.Debian.cli is defined
+  ini_file:
+    state="present"
+    dest="{{ item.value.target.Debian.cli }}"
+    option="{{ item.value.name }}"
+    value="{{ item.value.value }}"
+    section="{{ item.value.section }}"
+    owner=0
+    group=0
+    mode=600
+  with_dict: aspects_php_config
+  tags:
+    - aspects_php
+
+- name: RedHat - set php.ini options for Apache
+  when:
+    aspects_php_apache_installed == True and
+    aspects_php_config is defined and
+    ansible_os_family == "RedHat" and
+    item.value.enable == True and
+    item.value.target.RedHat.apache is defined
+  ini_file:
+    state="present"
+    dest="{{ item.value.target.RedHat.apache }}"
+    option="{{ item.value.name }}"
+    value="{{ item.value.value }}"
+    section="{{ item.value.section }}"
+    owner=0
+    group=0
+    mode=600
+  with_dict: aspects_php_config
+  notify: restart httpd
+  tags:
+    - aspects_php
+
+- name: RedHat - set php.ini options for php-cli
+  when:
+    aspects_php_cli_installed == True and
+    aspects_php_config is defined and
+    ansible_os_family == "RedHat" and
+    item.value.enable == True and
+    item.value.target.RedHat.cli is defined
+  ini_file:
+    state="present"
+    dest="{{ item.value.target.RedHat.cli }}"
+    option="{{ item.value.name }}"
+    value="{{ item.value.value }}"
+    section="{{ item.value.section }}"
+    owner=0
+    group=0
+    mode=600
+  with_dict: aspects_php_config
+  tags:
+    - aspects_php
+
+
+- name: Debian - remove php.ini options for Apache
+  when:
+    aspects_php_apache_installed == True and
+    aspects_php_config is defined and
+    ansible_os_family == "Debian" and
+    item.value.enable == False and
+    item.value.target.Debian.apache is defined
+  ini_file:
+    state="absent"
+    dest="{{ item.value.target.Debian.apache }}"
+    option="{{ item.value.name }}"
+    section="{{ item.value.section }}"
+    owner=0
+    group=0
+    mode=600
+  with_dict: aspects_php_config
+  notify: restart apache2
+  tags:
+    - aspects_php
+
+- name: Debian - remove php.ini options for php-cli
+  when:
+    aspects_php_cli_installed == True and
+    aspects_php_config is defined and
+    ansible_os_family == "Debian" and
+    item.value.enable == False and
+    item.value.target.Debian.cli is defined
+  ini_file:
+    state="absent"
+    dest="{{ item.value.target.Debian.cli }}"
+    option="{{ item.value.name }}"
+    section="{{ item.value.section }}"
+    owner=0
+    group=0
+    mode=600
+  with_dict: aspects_php_config
+  tags:
+    - aspects_php
+
+- name: RedHat - remove php.ini options for Apache
+  when:
+    aspects_php_apache_installed == True and
+    aspects_php_config is defined and
+    ansible_os_family == "RedHat" and
+    item.value.enable == False and
+    item.value.target.RedHat.apache is defined
+  ini_file:
+    state="absent"
+    dest="{{ item.value.target.RedHat.apache }}"
+    option="{{ item.value.name }}"
+    section="{{ item.value.section }}"
+    owner=0
+    group=0
+    mode=600
+  with_dict: aspects_php_config
+  notify: restart httpd
+  tags:
+    - aspects_php
+
+- name: RedHat - remove php.ini options for php-cli
+  when:
+    aspects_php_cli_installed == True and
+    aspects_php_config is defined and
+    ansible_os_family == "RedHat" and
+    item.value.enable == False and
+    item.value.target.RedHat.cli is defined
+  ini_file:
+    state="absent"
+    dest="{{ item.value.target.RedHat.cli }}"
+    option="{{ item.value.name }}"
+    section="{{ item.value.section }}"
+    owner=0
+    group=0
+    mode=600
+  with_dict: aspects_php_config
+  tags:
+    - aspects_php
+

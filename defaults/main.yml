@@ -1,0 +1,365 @@
+---
+aspects_php_enable: False
+aspects_php_apache_installed: False
+aspects_php_cli_installed: False
+
+# Have to target each file because extensions sometimes are configured in different files,
+# and Ansible cannot loop through sub dictionaries.
+aspects_php_config:
+  memory_limit:
+    enable: True
+    target:
+      Debian:
+        apache: "/etc/php5/apache2/php.ini"
+        cli: "/etc/php5/cli/php.ini"
+      RedHat:
+        apache: "/etc/php.ini"
+        cli: "/etc/php.ini"
+    section: "PHP"
+    name: "memory_limit"
+    value: "256M"
+  error_log:
+    enable: True
+    target:
+      Debian:
+        apache: "/etc/php5/apache2/php.ini"
+        cli: "/etc/php5/cli/php.ini"
+      RedHat:
+        apache: "/etc/php.ini"
+        cli: "/etc/php.ini"
+    section: "PHP"
+    name: "error_log"
+    value: "syslog"
+  allow_url_fopen:
+    enable: True
+    target:
+      Debian:
+        apache: "/etc/php5/apache2/php.ini"
+      RedHat:
+        apache: "/etc/php.ini"
+    section: "PHP"
+    name: "allow_url_fopen"
+    value: "Off"
+  disable_functions:
+    enable: True
+    target:
+      Debian:
+        apache: "/etc/php5/apache2/php.ini"
+      RedHat:
+        apache: "/etc/php.ini"
+    section: "PHP"
+    name: "disable_functions"
+    value: "apache_child_terminate,apache_setenv,define_syslog_variables,escapeshellarg,escapeshellcmd,eval,exec,fp,fput,ftp_connect,ftp_exec,ftp_get,ftp_login,ftp_nb_fput,ftp_put,ftp_raw,ftp_rawlist,highlight_file,ini_alter,ini_get_all,ini_restore,inject_code,mysql_pconnect,passthru,php_uname,phpAds_remoteInfo,phpAds_XmlRpc,phpAds_xmlrpcDecode,phpAds_xmlrpcEncode,popen,posix_getpwuid,posix_kill,posix_mkfifo,posix_setpgid,posix_setsid,posix_setuid,posix_setuid,posix_uname,proc_close,proc_get_status,proc_nice,proc_open,proc_terminate,shell_exec,system,xmlrpc_entity_decode,pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,"
+
+# PHP Packages
+aspects_php_packages:
+  php5:
+    state: "present"
+    Debian: "php5"
+    RedHat: "php"
+  phppear:
+    state: "default"
+    Debian: "php-pear"
+    RedHat: "php-pear"
+  phpapc:
+    state: "default"
+    Debian: "php-apc"
+    RedHat: "php-pecl-apc"
+  phpauth:
+    state: "default"
+    Debian: "php-auth"
+  phpauthhttp:
+    state: "default"
+    Debian: "php-auth-http"
+  phpauthsasl:
+    state: "default"
+    Debian: "php-auth-sasl"
+  phpbenchmark:
+    state: "default"
+    Debian: "php-benchmark"
+  phpcache:
+    state: "default"
+    Debian: "php-cache"
+  phpcachelite:
+    state: "default"
+    Debian: "php-cache-lite"
+  phpcodesniffer:
+    state: "default"
+    Debian: "php-codesniffer"
+  phpcompat:
+    state: "default"
+    Debian: "php-compat"
+  phpconfig:
+    state: "default"
+    Debian: "php-config"
+  phpconsoletable:
+    state: "default"
+    Debian: "php-console-table"
+  phpcryptblowfish:
+    state: "default"
+    Debian: "php-crypt-blowfish"
+  phpcryptcbc:
+    state: "default"
+    Debian: "php-crypt-cbc"
+  phpcryptgpg:
+    state: "default"
+    Debian: "php-crypt-gpg"
+  phpdate:
+    state: "default"
+    Debian: "php-date"
+  phpdb:
+    state: "default"
+    Debian: "php-db"
+  phpdoc:
+    state: "default"
+    Debian: "php-doc"
+  phpelisp:
+    state: "default"
+    Debian: "php-elisp"
+  phpeventdispatcher:
+    state: "default"
+    Debian: "php-event-dispatcher"
+  phpfile:
+    state: "default"
+    Debian: "php-file"
+  phpfpdf:
+    state: "default"
+    Debian: "php-fpdf"
+  phpgeshi:
+    state: "default"
+    Debian: "php-geshi"
+  phpgetid3:
+    state: "default"
+    Debian: "php-getid3"
+  phpgettext:
+    state: "default"
+    Debian: "php-gettext"
+  libapache2modphp5:
+    state: "default"
+    Debian: "libapache2-mod-php5"
+  libapache2modphp5filter:
+    state: "default"
+    Debian: "libapache2-mod-php5filter"
+  libexpectphp5:
+    state: "default"
+    Debian: "libexpect-php5"
+  libgvphp5:
+    state: "default"
+    Debian: "libgv-php5"
+  libowphp5:
+    state: "default"
+    Debian: "libow-php5"
+  php5adodb:
+    state: "default"
+    Debian: "php5-adodb"
+  php5authpam:
+    state: "default"
+    Debian: "php5-auth-pam"
+  php5cgi:
+    state: "default"
+    Debian: "php5-cgi"
+  php5cli:
+    state: "default"
+    Debian: "php5-cli"
+    RedHat: "php-cli"
+  php5common:
+    state: "default"
+    Debian: "php5-common"
+    RedHat: "php-common"
+  php5curl:
+    state: "default"
+    Debian: "php5-curl"
+  php5dbg:
+    state: "default"
+    Debian: "php5-dbg"
+  php5dev:
+    state: "default"
+    Debian: "php5-dev"
+  php5enchant:
+    state: "default"
+    Debian: "php5-enchant"
+    RedHat: "php-enchant"
+  php5exactimage:
+    state: "default"
+    Debian: "php5-exactimage"
+  php5ffmpeg:
+    state: "default"
+    Debian: "php5-ffmpeg"
+  php5fpm:
+    state: "default"
+    Debian: "php5-fpm"
+    RedHat: "php-fpm"
+  php5gd:
+    state: "default"
+    Debian: "php5-gd"
+    RedHat: "php-gd"
+  php5geoip:
+    state: "default"
+    Debian: "php5-geoip"
+  php5gmp:
+    state: "default"
+    Debian: "php5-gmp"
+  php5idn:
+    state: "default"
+    Debian: "php5-idn"
+  php5imagick:
+    state: "default"
+    Debian: "php5-imagick"
+  php5imap:
+    state: "default"
+    Debian: "php5-imap"
+    RedHat: "php-imap"
+  php5interbase:
+    state: "default"
+    Debian: "php5-interbase"
+  php5intl:
+    state: "default"
+    Debian: "php5-intl"
+    RedHat: "php-intl"
+  php5json:
+    state: "default"
+    Debian: "php5-json"
+  php5lasso:
+    state: "default"
+    Debian: "php5-lasso"
+  php5ldap:
+    state: "default"
+    Debian: "php5-ldap"
+    RedHat: "php-ldap"
+  php5librdf:
+    state: "default"
+    Debian: "php5-librdf"
+  php5mapscript:
+    state: "default"
+    Debian: "php5-mapscript"
+  php5mcrypt:
+    state: "default"
+    Debian: "php5-mcrypt"
+  php5memcache:
+    state: "default"
+    Debian: "php5-memcache"
+    RedHat: "php-pecl-memcache"
+  php5memcached:
+    state: "default"
+    Debian: "php5-memcached"
+  php5midgard2:
+    state: "default"
+    Debian: "php5-midgard2"
+  php5ming:
+    state: "default"
+    Debian: "php5-ming"
+  php5mysql:
+    state: "default"
+    Debian: "php5-mysql"
+    RedHat: "php-mysql"
+  php5mysqlnd:
+    state: "default"
+    Debian: "php5-mysqlnd"
+  php5odbc:
+    state: "default"
+    Debian: "php5-odbc"
+    RedHat: "php-odbc"
+  php5pgsql:
+    state: "default"
+    Debian: "php5-pgsql"
+    RedHat: "php-pgsql"
+  php5ps:
+    state: "default"
+    Debian: "php5-ps"
+  php5pspell:
+    state: "default"
+    Debian: "php5-pspell"
+    RedHat: "php-pspell"
+  php5radius:
+    state: "default"
+    Debian: "php5-radius"
+  php5recode:
+    state: "default"
+    Debian: "php5-recode"
+    RedHat: "php-recode"
+  php5remctl:
+    state: "default"
+    Debian: "php5-remctl"
+  php5rrd:
+    state: "default"
+    Debian: "php5-rrd"
+    RedHat: "rrdtool-php"
+  php5sasl:
+    state: "default"
+    Debian: "php5-sasl"
+  php5snmp:
+    state: "default"
+    Debian: "php5-snmp"
+    RedHat: "php-snmp"
+  php5sqlite:
+    state: "default"
+    Debian: "php5-sqlite"
+  php5suhosin:
+    state: "default"
+    Debian: "php5-suhosin"
+  php5svn:
+    state: "default"
+    Debian: "php5-svn"
+  php5sybase:
+    state: "default"
+    Debian: "php5-sybase"
+  php5tidy:
+    state: "default"
+    Debian: "php5-tidy"
+    RedHat: "php-tidy"
+  php5tokyotyrant:
+    state: "default"
+    Debian: "php5-tokyo-tyrant"
+  php5uuid:
+    state: "default"
+    Debian: "php5-uuid"
+    RedHat: "uuid-php"
+  php5xcache:
+    state: "default"
+    Debian: "php5-xcache"
+  php5xdebug:
+    state: "default"
+    Debian: "php5-xdebug"
+  php5xmlrpc:
+    state: "default"
+    Debian: "php5-xmlrpc"
+    RedHat: "php-xmlrpc"
+  php5xsl:
+    state: "default"
+    Debian: "php5-xsl"
+  phpbcmath:
+    state: "default"
+    RedHat: "php-bcmath"
+  phpdba:
+    state: "default"
+    RedHat: "php-dba"
+  phpdevel:
+    state: "default"
+    RedHat: "php-devel"
+  phpembedded:
+    state: "default"
+    RedHat: "php-embedded"
+  phpmbstring:
+    state: "default"
+    RedHat: "php-mbstring"
+  phppdo:
+    state: "default"
+    RedHat: "php-pdo"
+  phpprocess:
+    state: "default"
+    RedHat: "php-process"
+  phpsoap:
+    state: "default"
+    RedHat: "php-soap"
+  phpxml:
+    state: "default"
+    RedHat: "php-xml"
+  phpzts:
+    state: "default"
+    RedHat: "php-zts"
+  phppeclapcdevel:
+    state: "default"
+    RedHat: "php-pecl-apc-devel"
+  phppeclapcdevel:
+    state: "default"
+    RedHat: "php-pecl-apc-devel"

@@ -1,0 +1,6 @@
+---
+# Install php-devel
+# Install php-pear
+# Run pecl channel-update pecl.php.net
+# CentOS line created: /usr/lib64/php/modules/uploadprogress.so
+# Ubuntu /usr/lib/php5/20090626/uploadprogress.so
