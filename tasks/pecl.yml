@@ -1,6 +1,37 @@
 ---
-# Install php-devel
-# Install php-pear
+# This will fail if php-devel and php-pear are not installed.
+
 # Run pecl channel-update pecl.php.net
-# CentOS line created: /usr/lib64/php/modules/uploadprogress.so
-# Ubuntu /usr/lib/php5/20090626/uploadprogress.so
+- name: update pecl channels.
+  shell: pecl update-channels
+  tags:
+  - aspects_php
+  - aspects_php_pecl
+
+- name: Debian - install pecl packages
+  when: ansible_os_family == "Debian" and item.value.state == "present" or item.value.state == "latest"
+  shell: pecl install {{ item.value.name }}
+  args:
+    creates: {{ item.value.linecreated.Debian }}
+  with_dict: aspects_php_pecl_packages
+  tags:
+  - aspects_php
+  - aspects_php_pecl
+
+- name: RedHat - install pecl packages
+  when: ansible_os_family == "RedHat" and item.value.state == "present" or item.value.state == "latest"
+  shell: pecl install {{ item.value.name }}
+  args:
+    creates: {{ item.value.linecreated.RedHat }}
+  with_dict: aspects_php_pecl_packages
+  tags:
+  - aspects_php
+  - aspects_php_pecl
+
+- name: Upgrade pecl packages
+  when: item.value.state == "latest"
+  shell: pecl upgrade {{ item.value.name }}
+  with_dict: aspects_php_pecl_packages
+  tags:
+  - aspects_php
+  - aspects_php_pecl
