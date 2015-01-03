@@ -320,6 +320,7 @@ aspects_php_packages:
   php5tokyotyrant:
     state: "default"
     Debian: "php5-tokyo-tyrant"
+# php5-uuid is not available in Ubuntu 14.04.
   php5uuid:
     state: "default"
     Debian: "php5-uuid"
