@@ -9,7 +9,10 @@
   - aspects_php_pecl
 
 - name: Debian - install pecl packages
-  when: ansible_os_family == "Debian" and item.value.state == "present" or item.value.state == "latest"
+  when:
+    ansible_os_family == "Debian" and
+    item.value.state == "present" or
+    item.value.state == "latest"
   shell: pecl install {{ item.value.name }}
   args:
     creates: {{ item.value.linecreated.Debian }}
@@ -19,7 +22,10 @@
   - aspects_php_pecl
 
 - name: RedHat - install pecl packages
-  when: ansible_os_family == "RedHat" and item.value.state == "present" or item.value.state == "latest"
+  when:
+    ansible_os_family == "RedHat" and
+    item.value.state == "present" or
+    item.value.state == "latest"
   shell: pecl install {{ item.value.name }}
   args:
     creates: {{ item.value.linecreated.RedHat }}
