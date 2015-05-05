@@ -13,7 +13,7 @@ Role Variables
 
 See defaults/main.yml for details.
 
-* aspects_php_enable
+* aspects_php_enabled
 * aspects_php_apache_installed
 * aspects_php_cli_installed
 * aspects_php_config
@@ -29,7 +29,7 @@ Including an example of how to use your role (for instance, with variables passe
       roles:
       - aspects_php
       vars:
-        aspects_php_enable: True
+        aspects_php_enabled: True
         aspects_php_apache_installed: True
         aspects_php_cli_installed: True
         aspects_php_packages:

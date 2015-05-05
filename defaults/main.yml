@@ -1,5 +1,5 @@
 ---
-aspects_php_enable: False
+aspects_php_enabled: False
 aspects_php_apache_installed: False
 aspects_php_cli_installed: False
 
