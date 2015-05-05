@@ -1,25 +1,63 @@
 ---
 # file: roles/php/handlers/main.yml
 - name: restart apache2
-  service: name=apache2 state=restarted enabled=yes
+  service:
+    name: apache2
+    state: restarted
+    enabled: yes
+  tags:
+  - aspects_php
 
 - name: reload apache2
-  service: name=apache2 state=reloaded enabled=yes
+  service:
+    name: apache2
+    state: reloaded
+    enabled: yes
+  tags:
+  - aspects_php
 
 - name: start apache2
-  service: name=apache2 state=started enabled=yes
+  service:
+    name: apache2
+    state: started
+    enabled: yes
+  tags:
+  - aspects_php
 
 - name: stop apache2
-  service: name=apache2 state=stopped
+  service:
+    name: apache2
+    state: stopped
+  tags:
+  - aspects_php
   
 - name: restart httpd
-  service: name=httpd state=restarted enabled=yes
+  service:
+    name: httpd
+    state: restarted
+    enabled: yes
+  tags:
+  - aspects_php
 
 - name: reload httpd
-  service: name=httpd state=reloaded enabled=yes
+  service:
+    name: httpd
+    state: reloaded
+    enabled: yes
+  tags:
+  - aspects_php
 
 - name: start httpd
-  service: name=httpd state=started enabled=yes
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+  tags:
+  - aspects_php
 
 - name: stop httpd
-  service: name=httpd state=stopped
+  service:
+    name: httpd
+    state: stopped
+  tags:
+  - aspects_php
