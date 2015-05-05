@@ -12,14 +12,14 @@
     item.value.enable == True and
     item.value.target.Debian.apache is defined
   ini_file:
-    state="present"
-    dest="{{ item.value.target.Debian.apache }}"
-    option="{{ item.value.name }}"
-    value="{{ item.value.value }}"
-    section="{{ item.value.section }}"
-    owner=0
-    group=0
-    mode=600
+    state: "present"
+    dest: "{{ item.value.target.Debian.apache }}"
+    option: "{{ item.value.name }}"
+    value: "{{ item.value.value }}"
+    section: "{{ item.value.section }}"
+    owner: 0
+    group: 0
+    mode: "600"
   with_dict: aspects_php_config
   notify: restart apache2
   tags:
@@ -33,14 +33,14 @@
     item.value.enable == True and
     item.value.target.Debian.cli is defined
   ini_file:
-    state="present"
-    dest="{{ item.value.target.Debian.cli }}"
-    option="{{ item.value.name }}"
-    value="{{ item.value.value }}"
-    section="{{ item.value.section }}"
-    owner=0
-    group=0
-    mode=600
+    state: "present"
+    dest: "{{ item.value.target.Debian.cli }}"
+    option: "{{ item.value.name }}"
+    value: "{{ item.value.value }}"
+    section: "{{ item.value.section }}"
+    owner: 0
+    group: 0
+    mode: "600"
   with_dict: aspects_php_config
   tags:
     - aspects_php
@@ -53,14 +53,14 @@
     item.value.enable == True and
     item.value.target.RedHat.apache is defined
   ini_file:
-    state="present"
-    dest="{{ item.value.target.RedHat.apache }}"
-    option="{{ item.value.name }}"
-    value="{{ item.value.value }}"
-    section="{{ item.value.section }}"
-    owner=0
-    group=0
-    mode=600
+    state: "present"
+    dest: "{{ item.value.target.RedHat.apache }}"
+    option: "{{ item.value.name }}"
+    value: "{{ item.value.value }}"
+    section: "{{ item.value.section }}"
+    owner: 0
+    group: 0
+    mode: "600"
   with_dict: aspects_php_config
   notify: restart httpd
   tags:
@@ -74,18 +74,17 @@
     item.value.enable == True and
     item.value.target.RedHat.cli is defined
   ini_file:
-    state="present"
-    dest="{{ item.value.target.RedHat.cli }}"
-    option="{{ item.value.name }}"
-    value="{{ item.value.value }}"
-    section="{{ item.value.section }}"
-    owner=0
-    group=0
-    mode=600
+    state: "present"
+    dest: "{{ item.value.target.RedHat.cli }}"
+    option: "{{ item.value.name }}"
+    value: "{{ item.value.value }}"
+    section: "{{ item.value.section }}"
+    owner: 0
+    group: 0
+    mode: "600"
   with_dict: aspects_php_config
   tags:
     - aspects_php
-
 
 - name: Debian - remove php.ini options for Apache
   when:
@@ -95,13 +94,13 @@
     item.value.enable == False and
     item.value.target.Debian.apache is defined
   ini_file:
-    state="absent"
-    dest="{{ item.value.target.Debian.apache }}"
-    option="{{ item.value.name }}"
-    section="{{ item.value.section }}"
-    owner=0
-    group=0
-    mode=600
+    state: "absent"
+    dest: "{{ item.value.target.Debian.apache }}"
+    option: "{{ item.value.name }}"
+    section: "{{ item.value.section }}"
+    owner: 0
+    group: 0
+    mode: "600"
   with_dict: aspects_php_config
   notify: restart apache2
   tags:
@@ -115,13 +114,13 @@
     item.value.enable == False and
     item.value.target.Debian.cli is defined
   ini_file:
-    state="absent"
-    dest="{{ item.value.target.Debian.cli }}"
-    option="{{ item.value.name }}"
-    section="{{ item.value.section }}"
-    owner=0
-    group=0
-    mode=600
+    state: "absent"
+    dest: "{{ item.value.target.Debian.cli }}"
+    option: "{{ item.value.name }}"
+    section: "{{ item.value.section }}"
+    owner: 0
+    group: 0
+    mode: "600"
   with_dict: aspects_php_config
   tags:
     - aspects_php
@@ -134,13 +133,13 @@
     item.value.enable == False and
     item.value.target.RedHat.apache is defined
   ini_file:
-    state="absent"
-    dest="{{ item.value.target.RedHat.apache }}"
-    option="{{ item.value.name }}"
-    section="{{ item.value.section }}"
-    owner=0
-    group=0
-    mode=600
+    state: "absent"
+    dest: "{{ item.value.target.RedHat.apache }}"
+    option: "{{ item.value.name }}"
+    section: "{{ item.value.section }}"
+    owner: 0
+    group: 0
+    mode: "600"
   with_dict: aspects_php_config
   notify: restart httpd
   tags:
@@ -154,13 +153,13 @@
     item.value.enable == False and
     item.value.target.RedHat.cli is defined
   ini_file:
-    state="absent"
-    dest="{{ item.value.target.RedHat.cli }}"
-    option="{{ item.value.name }}"
-    section="{{ item.value.section }}"
-    owner=0
-    group=0
-    mode=600
+    state: "absent"
+    dest: "{{ item.value.target.RedHat.cli }}"
+    option: "{{ item.value.name }}"
+    section: "{{ item.value.section }}"
+    owner: 0
+    group: 0
+    mode: "600"
   with_dict: aspects_php_config
   tags:
     - aspects_php
