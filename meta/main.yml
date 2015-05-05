@@ -4,7 +4,7 @@ galaxy_info:
   description: Install and configure php, php-cli, apache mod_php, and pecl libraries.
   company: Lane Community College
   license: MIT
-  min_ansible_version: 1.6
+  min_ansible_version: 1.8
   platforms:
   - name: CentOS
     versions:
@@ -67,7 +67,7 @@ galaxy_info:
   #  - quantal
   #  - raring
   #  - saucy
-  #  - trusty
+    - trusty
   #- name: SLES
   #  versions:
   #  - all
