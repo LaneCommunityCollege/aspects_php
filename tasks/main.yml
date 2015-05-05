@@ -1,3 +1,5 @@
 ---
 - include: init.yml
   when: aspects_php_enabled == True
+  tags:
+  - aspects_php
