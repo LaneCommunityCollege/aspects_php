@@ -12,6 +12,7 @@
 
 - name: Enable module
   when:
+    modlinkstate|skipped == False and
     item.item.value.state == "enabled" and
     item.stat.exists == False
   shell: /usr/sbin/php5enmod {{ item.item.value.name }}
@@ -22,6 +23,7 @@
 
 - name: Disable module
   when:
+    modlinkstate|skipped == False and
     item.stat.exists == True and
     item.item.value.state == "disabled"
   shell: /usr/sbin/php5dismod {{ item.item.value.name }}
