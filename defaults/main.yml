@@ -3,6 +3,8 @@ aspects_php_enabled: False
 aspects_php_apache_installed: False
 aspects_php_cli_installed: False
 
+aspects_php_modules: {}
+
 # Have to target each file because extensions sometimes are configured in different files,
 # and Ansible cannot loop through sub dictionaries.
 aspects_php_config:

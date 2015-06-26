@@ -19,6 +19,25 @@ See defaults/main.yml for details.
 * aspects_php_config
 * aspects_php_packages
 
+Enabling and Disabling mods with phpenmod and phpdismod
+-------------------------------------------------------
+
+On Ubuntu 14.04 the default means of enabling and disabling php modules is to use the
+phpenmod and phpdismod tools. These tools do more than just create links to ini files. 
+Thus there is a custom task file that uses these tools. These tasks only run on Ubuntu 14.04 
+and Debian 7.
+
+To use this functionality, simply find the module name and the path of the link phpenmod creates,
+then add it to the ```aspects_php_modules``` dictionary.
+
+For example, the json module would look like this:
+
+    aspects_php_modules: 
+      json:
+        state: "enabled"
+        name: "json"
+        link: "/etc/php5/apache2/conf.d/20-json.ini"
+
 Example Playbook
 -------------------------
 

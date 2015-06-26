@@ -4,6 +4,11 @@
   tags:
       - aspects_php
 
+- include: TrustyModManagement.yml
+  when: ansible_os_family == "Debian" and (ansible_lsb.release == "14.04" or ansible_lsb.major_release == "7")
+  tags:
+      - aspects_php
+
 - name: Debian - set php.ini options for Apache
   when:
     aspects_php_apache_installed == True and

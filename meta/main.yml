@@ -8,7 +8,7 @@ galaxy_info:
   platforms:
   - name: CentOS
     versions:
-    - 6.5
+    - 6
   #- name: EL
   #  versions:
   #  - all
@@ -81,13 +81,13 @@ galaxy_info:
   #  versions:
   #  - all
   #  - any
-  #- name: Debian
-  #  versions:
+  - name: Debian
+    versions:
   #  - all
   #  - etch
   #  - lenny
   #  - squeeze
-  #  - wheezy
+    - wheezy
   #
   # Below are all categories currently available. Just as with
   # the platforms above, uncomment those that apply to your role.
