@@ -4,6 +4,12 @@
   tags:
       - aspects_php
 
+- include: pecl.yml
+  when: aspects_php_use_pecl
+  tags:
+    - aspects_php
+    - aspects_php_pecl
+
 - include: TrustyModManagement.yml
   when: ansible_os_family == "Debian" and (ansible_lsb.release == "14.04" or ansible_lsb.major_release == "7")
   tags:

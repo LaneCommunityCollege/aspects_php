@@ -7,15 +7,18 @@
   tags:
   - aspects_php
   - aspects_php_pecl
+# The pecl install tasks have a line break piped into them
+# so that the installer will automatically use the default options
+# that pecl install presents.
 
 - name: Debian - install pecl packages
   when:
     ansible_os_family == "Debian" and
     item.value.state == "present" or
     item.value.state == "latest"
-  shell: pecl install {{ item.value.name }}
+  shell: printf "\n" | pecl install "{{ item.value.name }}"
   args:
-    creates: {{ item.value.linecreated.Debian }}
+    creates: "{{ item.value.linecreated.Debian }}"
   with_dict: aspects_php_pecl_packages
   tags:
   - aspects_php
@@ -26,9 +29,9 @@
     ansible_os_family == "RedHat" and
     item.value.state == "present" or
     item.value.state == "latest"
-  shell: pecl install {{ item.value.name }}
+  shell: printf "\n" | pecl install "{{ item.value.name }}"
   args:
-    creates: {{ item.value.linecreated.RedHat }}
+    creates: "{{ item.value.linecreated.RedHat }}"
   with_dict: aspects_php_pecl_packages
   tags:
   - aspects_php
@@ -36,7 +39,7 @@
 
 - name: Upgrade pecl packages
   when: item.value.state == "latest"
-  shell: pecl upgrade {{ item.value.name }}
+  shell: "pecl upgrade {{ item.value.name }}"
   with_dict: aspects_php_pecl_packages
   tags:
   - aspects_php

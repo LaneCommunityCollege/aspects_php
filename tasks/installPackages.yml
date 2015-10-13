@@ -49,6 +49,19 @@
     - aspects_php
     - aspects_php_package_install
 
+- name: Debian - Install libapache2-mod-php5 package with apt
+  when:
+    ansible_os_family == "Debian" and
+    aspects_php_apache_installed
+  apt:
+    pkg: "libapache2-mod-php5"
+    state: "present"
+    update_cache: "yes"
+    cache_valid_time: "86400"
+  tags:
+    - aspects_php
+    - aspects_php_package_install
+
 - name: Debian - Install php packages with apt
   when: 
     ansible_os_family == "Debian" and 
@@ -78,17 +91,3 @@
   tags:
     - aspects_php
     - aspects_php_package_install
-#
-#- name: Suse - Install php packages with Zypper
-#  when: 
-#    ansible_os_family == "Suse" and 
-#    item.value.state != "default" and 
-#    item.value.state != "purged" and 
-#    item.value.Suse is defined
-#  zypper: 
-#    name: "{{ item.value.Suse }}" 
-#    state: "{{ item.value.state }}"
-#  with_dict: aspects_php_packages
-#  tags:
-#    - aspects_php
-#    - aspects_php_package_install

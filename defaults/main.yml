@@ -1,12 +1,21 @@
 ---
+# To use this role at all, you need to set aspects_php_enabled to True.
 aspects_php_enabled: False
+# If you wish the Apache php module installed, set aspects_php_apache_installed to True.
 aspects_php_apache_installed: False
+# If you want to install the php command line tool, set aspects_php_cli_installed to True.
 aspects_php_cli_installed: False
 
+# Since PECL can be ugly, we disable the PECL tasks by default.
+# Set aspects_php_use_pecl to True if you wish to use these tasks.
+aspects_php_use_pecl: False
+
+# To configure and enable modules that are taken care of by php5enmod and php5dismod tools, use
+# the aspects_php_modules dictionary.
 aspects_php_modules: {}
 
-# Have to target each file because extensions sometimes are configured in different files,
-# and Ansible cannot loop through sub dictionaries.
+# Different distributions place the appropriate php.ini files in different locations.
+# Thus, we have to tell Ansible which ini file to use.
 aspects_php_config:
   memory_limit:
     enable: True
@@ -60,8 +69,8 @@ aspects_php_pecl_packages:
     state: "default"
     name: "uploadprogress"
     linecreated:
-      Debian: "/usr/lib64/php/modules/uploadprogress.so"
-      RedHat: "/usr/lib/php5/20090626/uploadprogress.so"
+      Debian: "/usr/lib/php5/20121212/uploadprogress.so"
+      RedHat: "/usr/lib64/php/modules/uploadprogress.so"
 
 # PHP Packages
 aspects_php_packages:
@@ -376,3 +385,7 @@ aspects_php_packages:
   phppeclapcdevel:
     state: "default"
     RedHat: "php-pecl-apc-devel"
+  libpcre3dev:
+    state: "default"
+    Debian: "libpcre3-dev"
+    RedHat: "pcre-devel"
