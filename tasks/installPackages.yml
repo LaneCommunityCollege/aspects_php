@@ -10,7 +10,7 @@
     - aspects_php_package_install
 
 - name: Debian - Install python-apt for use with ansible apt modules.
-  when: ansible_os_family == "Debian"
+  when: ansible_os_family == "Debian" or ansible_os_family == "Linuxmint"
   apt: 
     pkg: python-apt 
     state: present 
@@ -21,7 +21,7 @@
     - aspects_php_package_install
 
 - name: Debian - install pip
-  when: ansible_os_family == "Debian"
+  when: ansible_os_family == "Debian" or ansible_os_family == "Linuxmint"
   apt: 
     pkg: "python-pip" 
     state: "present"
@@ -51,7 +51,7 @@
 
 - name: Debian - Install libapache2-mod-php5 package with apt
   when:
-    ansible_os_family == "Debian" and
+    (ansible_os_family == "Debian" or ansible_os_family == "Linuxmint") and
     aspects_php_apache_installed
   apt:
     pkg: "libapache2-mod-php5"
@@ -64,7 +64,7 @@
 
 - name: Debian - Install php packages with apt
   when: 
-    ansible_os_family == "Debian" and 
+    (ansible_os_family == "Debian" or ansible_os_family == "Linuxmint") and
     item.value.state != "default" and 
     item.value.state != "purged" and 
     item.value.Debian is defined

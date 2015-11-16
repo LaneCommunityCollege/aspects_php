@@ -13,7 +13,7 @@
 
 - name: Debian - install pecl packages
   when:
-    ansible_os_family == "Debian" and
+    (ansible_os_family == "Debian" or ansible_os_family == "Linuxmint") and
     item.value.state == "present" or
     item.value.state == "latest"
   shell: printf "\n" | pecl install "{{ item.value.name }}"

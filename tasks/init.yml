@@ -11,7 +11,7 @@
     - aspects_php_pecl
 
 - include: TrustyModManagement.yml
-  when: ansible_os_family == "Debian" and (ansible_lsb.release == "14.04" or ansible_lsb.major_release == "7")
+  when: (ansible_os_family == "Debian" and (ansible_lsb.release == "14.04" or ansible_lsb.major_release == "7"))  or ansible_os_family == "Linuxmint"
   tags:
       - aspects_php
 
@@ -19,7 +19,7 @@
   when:
     aspects_php_apache_installed == True and
     aspects_php_config is defined and
-    ansible_os_family == "Debian" and
+    (ansible_os_family == "Debian"  or ansible_os_family == "Linuxmint") and
     item.value.enable == True and
     item.value.target.Debian.apache is defined
   ini_file:
@@ -40,7 +40,7 @@
   when:
     aspects_php_cli_installed == True and
     aspects_php_config is defined and
-    ansible_os_family == "Debian" and
+    (ansible_os_family == "Debian" or ansible_os_family == "Linuxmint") and
     item.value.enable == True and
     item.value.target.Debian.cli is defined
   ini_file:
@@ -101,7 +101,7 @@
   when:
     aspects_php_apache_installed == True and
     aspects_php_config is defined and
-    ansible_os_family == "Debian" and
+    (ansible_os_family == "Debian" or ansible_os_family == "Linuxmint") and
     item.value.enable == False and
     item.value.target.Debian.apache is defined
   ini_file:
@@ -121,7 +121,7 @@
   when:
     aspects_php_cli_installed == True and
     aspects_php_config is defined and
-    ansible_os_family == "Debian" and
+    (ansible_os_family == "Debian" or ansible_os_family == "Linuxmint") and
     item.value.enable == False and
     item.value.target.Debian.cli is defined
   ini_file:
