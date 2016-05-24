@@ -1,6 +1,8 @@
 ---
 # file: roles/php/tasks/main.yml
-- include: installPackages.yml
+- name: "install php packages"
+  include: installPackages.yml
+  when: ansible_os_family == "Debian"
   tags:
       - aspects_php
 
@@ -17,6 +19,7 @@
 
 - name: Debian - set php.ini options for Apache
   when:
+    ansible_distribution_version != "16.04" and
     aspects_php_apache_installed == True and
     aspects_php_config is defined and
     (ansible_os_family == "Debian"  or ansible_os_family == "Linuxmint") and
@@ -38,6 +41,7 @@
 
 - name: Debian - set php.ini options for php-cli
   when:
+    ansible_distribution_version != "16.04" and
     aspects_php_cli_installed == True and
     aspects_php_config is defined and
     (ansible_os_family == "Debian" or ansible_os_family == "Linuxmint") and
@@ -97,8 +101,52 @@
   tags:
     - aspects_php
 
+- name: Ubuntu 16.04 - set php.ini options for Apache
+  when:
+    aspects_php_apache_installed == True and
+    aspects_php_config is defined and
+    (ansible_distribution == "Ubuntu" and
+     ansible_distribution_version == "16.04") and
+    item.value.enable == True and
+    item.value.target.Ubuntu1604.apache is defined
+  ini_file:
+    state: "present"
+    dest: "{{ item.value.target.Ubuntu1604.apache }}"
+    option: "{{ item.value.name }}"
+    value: "{{ item.value.value }}"
+    section: "{{ item.value.section }}"
+    owner: 0
+    group: 0
+    mode: "600"
+  with_dict: aspects_php_config
+  notify: restart apache2
+  tags:
+    - aspects_php
+
+- name: Ubuntu 16.04 - set php.ini options for php-cli
+  when:
+    aspects_php_cli_installed == True and
+    aspects_php_config is defined and
+    (ansible_distribution == "Ubuntu" and
+     ansible_distribution_version == "16.04") and
+    item.value.enable == True and
+    item.value.target.Ubuntu1604.cli is defined
+  ini_file:
+    state: "present"
+    dest: "{{ item.value.target.Ubuntu1604.cli }}"
+    option: "{{ item.value.name }}"
+    value: "{{ item.value.value }}"
+    section: "{{ item.value.section }}"
+    owner: 0
+    group: 0
+    mode: "600"
+  with_dict: aspects_php_config
+  tags:
+    - aspects_php
+
 - name: Debian - remove php.ini options for Apache
   when:
+    ansible_distribution_version != "16.04" and
     aspects_php_apache_installed == True and
     aspects_php_config is defined and
     (ansible_os_family == "Debian" or ansible_os_family == "Linuxmint") and
@@ -119,6 +167,7 @@
 
 - name: Debian - remove php.ini options for php-cli
   when:
+    ansible_distribution_version != "16.04" and
     aspects_php_cli_installed == True and
     aspects_php_config is defined and
     (ansible_os_family == "Debian" or ansible_os_family == "Linuxmint") and
@@ -136,6 +185,46 @@
   tags:
     - aspects_php
 
+- name: Ubuntu 16.04 - remove php.ini options for Apache
+  when:
+    aspects_php_apache_installed == True and
+    aspects_php_config is defined and
+    (ansible_distribution == "Ubuntu" and
+     ansible_distribution_version == "16.04") and
+    item.value.enable == False and
+    item.value.target.Ubuntu1604.apache is defined
+  ini_file:
+    state: "absent"
+    dest: "{{ item.value.target.Ubuntu1604.apache }}"
+    option: "{{ item.value.name }}"
+    section: "{{ item.value.section }}"
+    owner: 0
+    group: 0
+    mode: "600"
+  with_dict: aspects_php_config
+  notify: restart apache2
+  tags:
+    - aspects_php
+
+- name: Ubuntu 16.04 - remove php.ini options for php-cli
+  when:
+    aspects_php_cli_installed == True and
+    aspects_php_config is defined and
+    (ansible_distribution == "Ubuntu" and
+     ansible_distribution_version == "16.04") and
+    item.value.enable == False and
+    item.value.target.Ubuntu1604.cli is defined
+  ini_file:
+    state: "absent"
+    dest: "{{ item.value.target.Ubuntu1604.cli }}"
+    option: "{{ item.value.name }}"
+    section: "{{ item.value.section }}"
+    owner: 0
+    group: 0
+    mode: "600"
+  with_dict: aspects_php_config
+  tags:
+    - aspects_php
 - name: RedHat - remove php.ini options for Apache
   when:
     aspects_php_apache_installed == True and

@@ -23,6 +23,12 @@ aspects_php_config:
       Debian:
         apache: "/etc/php5/apache2/php.ini"
         cli: "/etc/php5/cli/php.ini"
+      Debian:
+        apache: "/etc/php5/apache2/php.ini"
+        cli: "/etc/php5/cli/php.ini"
+      Ubuntu1604:
+        apache: "/etc/php/7.0/apache2/php.ini"
+        cli: "/etc/php/7.0/cli/php.ini"
       RedHat:
         apache: "/etc/php.ini"
         cli: "/etc/php.ini"
@@ -35,6 +41,12 @@ aspects_php_config:
       Debian:
         apache: "/etc/php5/apache2/php.ini"
         cli: "/etc/php5/cli/php.ini"
+      Debian:
+        apache: "/etc/php5/apache2/php.ini"
+        cli: "/etc/php5/cli/php.ini"
+      Ubuntu1604:
+        apache: "/etc/php/7.0/apache2/php.ini"
+        cli: "/etc/php/7.0/cli/php.ini"
       RedHat:
         apache: "/etc/php.ini"
         cli: "/etc/php.ini"
@@ -46,6 +58,10 @@ aspects_php_config:
     target:
       Debian:
         apache: "/etc/php5/apache2/php.ini"
+      Ubuntu1604:
+        apache: "/etc/php/7.0/apache2/php.ini"
+      Debian:
+        apache: "/etc/php5/apache2/php.ini"
       RedHat:
         apache: "/etc/php.ini"
     section: "PHP"
@@ -54,6 +70,10 @@ aspects_php_config:
   disable_functions:
     enable: True
     target:
+      Debian:
+        apache: "/etc/php5/apache2/php.ini"
+      Ubuntu1604:
+        apache: "/etc/php/7.0/apache2/php.ini"
       Debian:
         apache: "/etc/php5/apache2/php.ini"
       RedHat:
@@ -78,6 +98,7 @@ aspects_php_packages:
     state: "present"
     Debian: "php5"
     RedHat: "php"
+    Ubuntu1604: "php"
   phppear:
     state: "default"
     Debian: "php-pear"
@@ -85,58 +106,80 @@ aspects_php_packages:
   phpapc:
     state: "default"
     Debian: "php-apc"
+    Ubuntu1604: "php-apc"
     RedHat: "php-pecl-apc"
   phpauth:
     state: "default"
     Debian: "php-auth"
+    Ubuntu1604: "php-auth"
   phpauthhttp:
     state: "default"
     Debian: "php-auth-http"
+    Ubuntu1604: "php-auth-http"
   phpauthsasl:
     state: "default"
     Debian: "php-auth-sasl"
+    Ubuntu1604: "php-auth-sasl"
   phpbenchmark:
     state: "default"
     Debian: "php-benchmark"
   phpcache:
     state: "default"
     Debian: "php-cache"
+    Ubuntu1604: "php-cache"
   phpcachelite:
     state: "default"
     Debian: "php-cache-lite"
+    Ubuntu1604: "php-cache-lite"
   phpcodesniffer:
     state: "default"
     Debian: "php-codesniffer"
+    Ubuntu1604: "php-codesniffer"
   phpcompat:
     state: "default"
     Debian: "php-compat"
+    Ubuntu1604: "php-compat"
   phpconfig:
     state: "default"
     Debian: "php-config"
   phpconsoletable:
     state: "default"
     Debian: "php-console-table"
+    Ubuntu1604: "php-console-table"
+  phpconsolecommandline:
+    state: "default"
+    Ubuntu1604: "php-console-commandline"
   phpcryptblowfish:
     state: "default"
     Debian: "php-crypt-blowfish"
+    Ubuntu1604: "php-crypt-blowfish"
+  phpcryptchap:
+    state: "default"
+    Ubuntu1604: "php-crypt-chap"
   phpcryptcbc:
     state: "default"
     Debian: "php-crypt-cbc"
+    Ubuntu1604: "php-crypt-cbc"
   phpcryptgpg:
     state: "default"
     Debian: "php-crypt-gpg"
+    Ubuntu1604: "php-crypt-gpg"
   phpdate:
     state: "default"
     Debian: "php-date"
+    Ubuntu1604: "php-date"
   phpdb:
     state: "default"
     Debian: "php-db"
+    Ubuntu1604: "php-db"
   phpdoc:
     state: "default"
     Debian: "php-doc"
+    Ubuntu1604: "php-doc"
   phpelisp:
     state: "default"
     Debian: "php-elisp"
+    Ubuntu1604: "php-elisp"
   phpeventdispatcher:
     state: "default"
     Debian: "php-event-dispatcher"
@@ -146,18 +189,23 @@ aspects_php_packages:
   phpfpdf:
     state: "default"
     Debian: "php-fpdf"
+    Ubuntu1604: "php-fpdf"
   phpgeshi:
     state: "default"
     Debian: "php-geshi"
+    Ubuntu1604: "php-geshi"
   phpgetid3:
     state: "default"
     Debian: "php-getid3"
+    Ubuntu1604: "php-getid3"
   phpgettext:
     state: "default"
     Debian: "php-gettext"
+    Ubuntu1604: "php-gettext"
   libapache2modphp5:
     state: "default"
     Debian: "libapache2-mod-php5"
+    Ubuntu1604: "libapache2-mod-php"
   libapache2modphp5filter:
     state: "default"
     Debian: "libapache2-mod-php5filter"
@@ -173,29 +221,35 @@ aspects_php_packages:
   php5adodb:
     state: "default"
     Debian: "php5-adodb"
+    Ubuntu1604: "php-adodb"
   php5authpam:
     state: "default"
     Debian: "php5-auth-pam"
   php5cgi:
     state: "default"
     Debian: "php5-cgi"
+    Ubuntu1604: "php-cgi"
   php5cli:
     state: "default"
     Debian: "php5-cli"
     RedHat: "php-cli"
+    Ubuntu1604: "php-cli"
   php5common:
     state: "default"
     Debian: "php5-common"
     RedHat: "php-common"
+    Ubuntu1604: "php-common"
   php5curl:
     state: "default"
     Debian: "php5-curl"
+    Ubuntu1604: "php-curl"
   php5dbg:
     state: "default"
     Debian: "php5-dbg"
   php5dev:
     state: "default"
     Debian: "php5-dev"
+    Ubuntu1604: "php-dev"
   php5enchant:
     state: "default"
     Debian: "php5-enchant"
@@ -214,9 +268,11 @@ aspects_php_packages:
     state: "default"
     Debian: "php5-gd"
     RedHat: "php-gd"
+    Ubuntu1604: "php-gd"
   php5geoip:
     state: "default"
     Debian: "php5-geoip"
+    Ubuntu1604: "php5-geoip"
   php5gmp:
     state: "default"
     Debian: "php5-gmp"
@@ -226,10 +282,12 @@ aspects_php_packages:
   php5imagick:
     state: "default"
     Debian: "php5-imagick"
+    Ubuntu1604: "php-imagick"
   php5imap:
     state: "default"
     Debian: "php5-imap"
     RedHat: "php-imap"
+    Ubuntu1604: "php-imap"
   php5interbase:
     state: "default"
     Debian: "php5-interbase"
@@ -237,9 +295,11 @@ aspects_php_packages:
     state: "default"
     Debian: "php5-intl"
     RedHat: "php-intl"
+    Ubuntu1604: "php-intl"
   php5json:
     state: "default"
     Debian: "php5-json"
+    Ubuntu1604: "php-json"
   php5lasso:
     state: "default"
     Debian: "php5-lasso"
@@ -247,6 +307,7 @@ aspects_php_packages:
     state: "default"
     Debian: "php5-ldap"
     RedHat: "php-ldap"
+    Ubuntu1604: "php-ldap"
   php5librdf:
     state: "default"
     Debian: "php5-librdf"
@@ -256,13 +317,16 @@ aspects_php_packages:
   php5mcrypt:
     state: "default"
     Debian: "php5-mcrypt"
+    Ubuntu1604: "php-mcrypt"
   php5memcache:
     state: "default"
     Debian: "php5-memcache"
+    Ubuntu1604: "php-memcache"
     RedHat: "php-pecl-memcache"
   php5memcached:
     state: "default"
     Debian: "php5-memcached"
+    Ubuntu1604: "php-memcached"
   php5midgard2:
     state: "default"
     Debian: "php5-midgard2"
@@ -273,6 +337,7 @@ aspects_php_packages:
     state: "default"
     Debian: "php5-mysql"
     RedHat: "php-mysql"
+    Ubuntu1604: "php-mysql"
   php5mysqlnd:
     state: "default"
     Debian: "php5-mysqlnd"
@@ -284,6 +349,7 @@ aspects_php_packages:
     state: "default"
     Debian: "php5-pgsql"
     RedHat: "php-pgsql"
+    Ubuntu1604: "php-pgsql"
   php5ps:
     state: "default"
     Debian: "php5-ps"
@@ -291,6 +357,7 @@ aspects_php_packages:
     state: "default"
     Debian: "php5-pspell"
     RedHat: "php-pspell"
+    Ubuntu1604: "php-pspell"
   php5radius:
     state: "default"
     Debian: "php5-radius"
@@ -315,6 +382,7 @@ aspects_php_packages:
   php5sqlite:
     state: "default"
     Debian: "php5-sqlite"
+    Ubuntu1604: "php-sqlite3"
   php5suhosin:
     state: "default"
     Debian: "php5-suhosin"
@@ -328,6 +396,7 @@ aspects_php_packages:
     state: "default"
     Debian: "php5-tidy"
     RedHat: "php-tidy"
+    Ubuntu1604: "php-tidy"
   php5tokyotyrant:
     state: "default"
     Debian: "php5-tokyo-tyrant"
@@ -335,6 +404,7 @@ aspects_php_packages:
   php5uuid:
     state: "default"
     Debian: "php5-uuid"
+    Ubuntu1604: "php-uuid"
     RedHat: "uuid-php"
   php5xcache:
     state: "default"
@@ -364,6 +434,7 @@ aspects_php_packages:
   phpmbstring:
     state: "default"
     RedHat: "php-mbstring"
+    Ubuntu1604: "php-mbstring"
   phppdo:
     state: "default"
     RedHat: "php-pdo"
@@ -389,3 +460,5 @@ aspects_php_packages:
     state: "default"
     Debian: "libpcre3-dev"
     RedHat: "pcre-devel"
+
+
