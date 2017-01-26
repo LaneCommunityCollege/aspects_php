@@ -19,7 +19,7 @@
   shell: printf "\n" | pecl install "{{ item.value.name }}"
   args:
     creates: "{{ item.value.linecreated.Debian }}"
-  with_dict: aspects_php_pecl_packages
+  with_dict: "{{ aspects_php_pecl_packages }}"
   tags:
   - aspects_php
   - aspects_php_pecl
@@ -32,7 +32,7 @@
   shell: printf "\n" | pecl install "{{ item.value.name }}"
   args:
     creates: "{{ item.value.linecreated.RedHat }}"
-  with_dict: aspects_php_pecl_packages
+  with_dict: "{{ aspects_php_pecl_packages }}"
   tags:
   - aspects_php
   - aspects_php_pecl
@@ -40,7 +40,7 @@
 - name: Upgrade pecl packages
   when: item.value.state == "latest"
   shell: "pecl upgrade {{ item.value.name }}"
-  with_dict: aspects_php_pecl_packages
+  with_dict: "{{ aspects_php_pecl_packages }}"
   tags:
   - aspects_php
   - aspects_php_pecl

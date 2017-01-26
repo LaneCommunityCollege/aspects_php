@@ -34,7 +34,7 @@
     owner: 0
     group: 0
     mode: "600"
-  with_dict: aspects_php_config
+  with_dict: "{{ aspects_php_config }}"
   notify: restart apache2
   tags:
     - aspects_php
@@ -56,7 +56,7 @@
     owner: 0
     group: 0
     mode: "600"
-  with_dict: aspects_php_config
+  with_dict: "{{ aspects_php_config }}"
   tags:
     - aspects_php
 
@@ -76,7 +76,7 @@
     owner: 0
     group: 0
     mode: "600"
-  with_dict: aspects_php_config
+  with_dict: "{{ aspects_php_config }}"
   notify: restart httpd
   tags:
     - aspects_php
@@ -97,7 +97,7 @@
     owner: 0
     group: 0
     mode: "600"
-  with_dict: aspects_php_config
+  with_dict: "{{ aspects_php_config }}"
   tags:
     - aspects_php
 
@@ -118,7 +118,7 @@
     owner: 0
     group: 0
     mode: "600"
-  with_dict: aspects_php_config
+  with_dict: "{{ aspects_php_config }}"
   notify: restart apache2
   tags:
     - aspects_php
@@ -140,7 +140,7 @@
     owner: 0
     group: 0
     mode: "600"
-  with_dict: aspects_php_config
+  with_dict: "{{ aspects_php_config }}"
   tags:
     - aspects_php
 
@@ -160,7 +160,7 @@
     owner: 0
     group: 0
     mode: "600"
-  with_dict: aspects_php_config
+  with_dict: "{{ aspects_php_config }}"
   notify: restart apache2
   tags:
     - aspects_php
@@ -181,7 +181,7 @@
     owner: 0
     group: 0
     mode: "600"
-  with_dict: aspects_php_config
+  with_dict: "{{ aspects_php_config }}"
   tags:
     - aspects_php
 
@@ -201,7 +201,7 @@
     owner: 0
     group: 0
     mode: "600"
-  with_dict: aspects_php_config
+  with_dict: "{{ aspects_php_config }}"
   notify: restart apache2
   tags:
     - aspects_php
@@ -222,7 +222,7 @@
     owner: 0
     group: 0
     mode: "600"
-  with_dict: aspects_php_config
+  with_dict: "{{ aspects_php_config }}"
   tags:
     - aspects_php
 - name: RedHat - remove php.ini options for Apache
@@ -240,7 +240,7 @@
     owner: 0
     group: 0
     mode: "600"
-  with_dict: aspects_php_config
+  with_dict: "{{ aspects_php_config }}"
   notify: restart httpd
   tags:
     - aspects_php
@@ -260,7 +260,7 @@
     owner: 0
     group: 0
     mode: "600"
-  with_dict: aspects_php_config
+  with_dict: "{{ aspects_php_config }}"
   tags:
     - aspects_php
 

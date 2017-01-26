@@ -4,7 +4,7 @@
   stat:
     path: "{{ item.value.link }}"
     follow: yes
-  with_dict: aspects_php_modules
+  with_dict: "{{ aspects_php_modules }}"
   register: modlinkstate
   tags:
   - aspects_php

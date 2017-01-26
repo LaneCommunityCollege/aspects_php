@@ -4,7 +4,7 @@
   stat:
     path: "{{ item.value.link }}"
     follow: yes
-  with_dict: aspects_php_modules
+  with_dict: "{{ aspects_php_modules }}"
   register: modlinkstate
   tags:
   - aspects_php
@@ -16,7 +16,7 @@
     item.item.value.state == "enabled" and
     item.stat.exists == False
   shell: /usr/sbin/phpenmod {{ item.item.value.name }}
-  with_items: modlinkstate.results
+  with_items: "{{ modlinkstate.results }}"
   tags:
   - aspects_php
   - aspects_php_modules
@@ -27,7 +27,7 @@
     item.stat.exists == True and
     item.item.value.state == "disabled"
   shell: /usr/sbin/phpdismod {{ item.item.value.name }}
-  with_items: modlinkstate.results
+  with_items: "{{ modlinkstate.results }}"
   tags:
   - aspects_php
   - aspects_php_modules
