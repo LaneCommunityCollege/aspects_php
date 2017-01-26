@@ -23,9 +23,6 @@ aspects_php_config:
       Debian:
         apache: "/etc/php5/apache2/php.ini"
         cli: "/etc/php5/cli/php.ini"
-      Debian:
-        apache: "/etc/php5/apache2/php.ini"
-        cli: "/etc/php5/cli/php.ini"
       Ubuntu1604:
         apache: "/etc/php/7.0/apache2/php.ini"
         cli: "/etc/php/7.0/cli/php.ini"
@@ -38,9 +35,6 @@ aspects_php_config:
   error_log:
     enable: True
     target:
-      Debian:
-        apache: "/etc/php5/apache2/php.ini"
-        cli: "/etc/php5/cli/php.ini"
       Debian:
         apache: "/etc/php5/apache2/php.ini"
         cli: "/etc/php5/cli/php.ini"
@@ -60,8 +54,6 @@ aspects_php_config:
         apache: "/etc/php5/apache2/php.ini"
       Ubuntu1604:
         apache: "/etc/php/7.0/apache2/php.ini"
-      Debian:
-        apache: "/etc/php5/apache2/php.ini"
       RedHat:
         apache: "/etc/php.ini"
     section: "PHP"
@@ -74,8 +66,6 @@ aspects_php_config:
         apache: "/etc/php5/apache2/php.ini"
       Ubuntu1604:
         apache: "/etc/php/7.0/apache2/php.ini"
-      Debian:
-        apache: "/etc/php5/apache2/php.ini"
       RedHat:
         apache: "/etc/php.ini"
     section: "PHP"
@@ -450,9 +440,6 @@ aspects_php_packages:
   phpzts:
     state: "default"
     RedHat: "php-zts"
-  phppeclapcdevel:
-    state: "default"
-    RedHat: "php-pecl-apc-devel"
   phppeclapcdevel:
     state: "default"
     RedHat: "php-pecl-apc-devel"
