@@ -16,7 +16,7 @@
     item.item.value.state == "enabled" and
     item.stat.exists == False
   shell: /usr/sbin/php5enmod {{ item.item.value.name }}
-  with_items: modlinkstate.results
+  with_items: "{{ modlinkstate.results }}"
   tags:
   - aspects_php
   - aspects_php_modules
@@ -27,7 +27,7 @@
     item.stat.exists == True and
     item.item.value.state == "disabled"
   shell: /usr/sbin/php5dismod {{ item.item.value.name }}
-  with_items: modlinkstate.results
+  with_items: "{{ modlinkstate.results }}"
   tags:
   - aspects_php
   - aspects_php_modules
