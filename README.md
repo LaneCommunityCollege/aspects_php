@@ -11,7 +11,7 @@ Set ```hash_behaviour=merge``` in your ansible.cfg file.
 Role Variables
 --------------
 
-See defaults/main.yml for details.
+See [defaults/main.yml](defaults/main.yml) for details.
 
 * aspects_php_enabled
 * aspects_php_apache_installed
@@ -20,12 +20,62 @@ See defaults/main.yml for details.
 * aspects_php_packages
 * aspects_php_modules
 
+### aspects_php_packages
+A dictionary/hash of packages to install.
+
+Use this pattern:
+
+```yaml
+aspects_php_packages:
+  <package key>:
+    state: "<present or latest>"
+    <ansible_distribution>:
+      <ansible_distribution_version or ansible_distribution_major_version>: "<package name>"
+```
+Set ```state``` to "default" if you wish to list a package but not install it.
+
+Check the [tasks/aptInstallpackages.yml](aptInstallpackages.yml) or [tasks/yumInstallPackages.yml](yumInstallPackages.yml) files to find out what values are accepted for the ```ansible_distribution_*``` variables.
+
+
+For example:
+
+```yaml
+aspects_php_packages:
+  php:
+    state: "present"
+    Ubuntu:
+      1604: "php"
+      1404: "php5"
+    Debian:
+      9: "php"
+    CentOS:
+      7: "php"
+  phpcurl:
+    state: "present"
+    Ubuntu:
+      1404: "php5-curl"
+      1604: "php-curl"
+    Debian:
+      9: "php-curl"
+    CentOS:
+      7: "php"
+  phpgd:
+    state: "present"
+    Ubuntu:
+      1404: "php5-gd"
+      1604: "php-gd"
+    Debian:
+      9: "php-gd"
+    CentOS:
+      7: "php-gd"
+```
+
 Enabling and Disabling mods with php5enmod and php5dismod
 -------------------------------------------------------
 
 On Ubuntu 14.04 the default means of enabling and disabling php modules is to use the
-php5enmod and php5dismod tools. These tools do more than just create links to ini files. 
-Thus there is a custom task file that uses these tools. These tasks only run on Ubuntu 14.04 
+php5enmod and php5dismod tools. These tools do more than just create links to ini files.
+Thus there is a custom task file that uses these tools. These tasks only run on Ubuntu 14.04
 and Debian 7.
 
 To use this functionality, simply find the module name and the path of the link php5enmod creates,
@@ -33,7 +83,7 @@ then add it to the ```aspects_php_modules``` dictionary.
 
 For example, the json module would look like this:
 
-    aspects_php_modules: 
+    aspects_php_modules:
       json:
         state: "enabled"
         name: "json"
@@ -81,32 +131,55 @@ If you have problems, make sure to test the PECL install manually. Also, use ```
 Example Playbook
 -------------------------
 
-
-    - hosts:
-      - hostname
-      roles:
-      - aspects_php
-      vars:
-        aspects_php_enabled: True
-        aspects_php_apache_installed: True
-        aspects_php_cli_installed: True
-        aspects_php_packages:
-          libapache2modphp5:
-            state: "latest"
-            Debian: "libapache2-mod-php5"
-            RedHat: "httpd"
-        aspects_php_config:
-          outputbuffering:
-            enable: False
-            target:
-              Debian:
-                apache: "/etc/php5/apache2/php.ini"
-              RedHat:
-                apache: "/etc/php.ini"
-            section: "PHP"
-            name: "output_buffering"
-            value: "4096"
-
+```yaml
+- hosts:
+  - hostname
+  roles:
+  - aspects_php
+  vars:
+    aspects_php_enabled: True
+    aspects_php_apache_installed: True
+    aspects_php_cli_installed: True
+    aspects_php_packages:
+      php:
+        state: "present"
+        Ubuntu:
+          1604: "php"
+          1404: "php5"
+        Debian:
+          9: "php"
+        CentOS:
+          7: "php"
+      phpcurl:
+        state: "present"
+        Ubuntu:
+          1404: "php5-curl"
+          1604: "php-curl"
+        Debian:
+          9: "php-curl"
+        CentOS:
+          7: "php"
+      phpgd:
+        state: "present"
+        Ubuntu:
+          1404: "php5-gd"
+          1604: "php-gd"
+        Debian:
+          9: "php-gd"
+        CentOS:
+          7: "php-gd"
+    aspects_php_config:
+      outputbuffering:
+        enable: False
+        target:
+          Debian:
+            apache: "/etc/php5/apache2/php.ini"
+          RedHat:
+            apache: "/etc/php.ini"
+        section: "PHP"
+        name: "output_buffering"
+        value: "4096"
+```
 License
 -------
 

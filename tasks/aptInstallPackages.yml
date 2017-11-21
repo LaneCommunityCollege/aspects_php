@@ -1,0 +1,133 @@
+---
+- name: apt - Install python-apt for use with Ansible apt modules.
+  apt:
+    pkg: python-apt
+    state: present
+    cache_valid_time: "14400"
+  tags:
+    - aspects_php
+    - aspects_php_package_install
+    - aspects_php_package_install_apt
+
+- name: apt - install pip
+  apt:
+    pkg: "python-pip"
+    state: "present"
+  tags:
+    - aspects_php
+    - aspects_php_package_install
+    - aspects_php_package_install_apt
+
+- name: Use pip to install ConfigParser
+  pip:
+    state: "present"
+    name: "ConfigParser"
+  tags:
+    - aspects_php
+    - aspects_php_package_install
+    - aspects_php_package_install_apt
+    - aspects_php_package_install_pip
+
+- name: apt - Install libapache2-mod-php5 on Ubuntu 14.04
+  when:
+    - aspects_php_apache_installed
+    - ansible_distribution == "Ubuntu"
+    - ansible_distribution_version == 14.04
+  apt:
+    pkg: "libapache2-mod-php5"
+    state: "present"
+    cache_valid_time: "14400"
+  tags:
+    - aspects_php
+    - aspects_php_package_install
+    - aspects_php_package_install_apt
+
+- name: apt - Install libapache2-mod-php on Ubuntu == 16.04
+  when:
+    - aspects_php_apache_installed
+    - ansible_distribution == "Ubuntu"
+    - ansible_distribution_version == 16.04
+  apt:
+    pkg: "libapache2-mod-php"
+    state: "present"
+    cache_valid_time: "14400"
+  tags:
+    - aspects_php
+    - aspects_php_package_install
+    - aspects_php_package_install_apt
+
+- name: apt - Install libapache2-mod-php on Debian == 9
+  when:
+    - aspects_php_apache_installed
+    - ansible_distribution == "Debian"
+    - ansible_distribution_major_version == 9
+  apt:
+    pkg: "libapache2-mod-php"
+    state: "present"
+    cache_valid_time: "14400"
+  tags:
+    - aspects_php
+    - aspects_php_package_install
+    - aspects_php_package_install_apt
+
+- name: install Ubuntu 14.04 packages
+  when:
+    (
+      ansible_distribution == "Ubuntu" and
+      ansible_distribution_version == "14.04" and
+        (
+          item.value.state == "present" or
+          item.value.state == "latest"
+        )
+    )
+  apt:
+    pkg: "{{ item.value.Ubuntu.1404 }}"
+    state: "{{ item.value.state }}"
+    cache_valid_time: "14400"
+  with_dict: "{{ aspects_php_packages }}"
+  tags:
+    - aspects_php
+    - aspects_php_package_install
+    - aspects_php_package_install_apt
+
+
+- name: install Ubuntu 16.04 packages
+  when:
+    (
+      ansible_distribution == "Ubuntu" and
+      ansible_distribution_version == "16.04" and
+        (
+          item.value.state == "present" or
+          item.value.state == "latest"
+        )
+    )
+  apt:
+    pkg: "{{ item.value.Ubuntu.1604 }}"
+    state: "{{ item.value.state }}"
+    cache_valid_time: "14400"
+  with_dict: "{{ aspects_php_packages }}"
+  tags:
+    - aspects_php
+    - aspects_php_package_install
+    - aspects_php_package_install_apt
+
+
+- name: install Debian 9 packages
+  when:
+    (
+      ansible_distribution == "Debian" and
+      ansible_distribution_major_version == "9" and
+        (
+          item.value.state == "present" or
+          item.value.state == "latest"
+        )
+    )
+  apt:
+    pkg: "{{ item.value.Debian.9 }}"
+    state: "{{ item.value.state }}"
+    cache_valid_time: "14400"
+  with_dict: "{{ aspects_php_packages }}"
+  tags:
+    - aspects_php
+    - aspects_php_package_install
+    - aspects_php_package_install_apt

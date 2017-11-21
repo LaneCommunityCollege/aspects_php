@@ -1,0 +1,47 @@
+---
+- name: yum - Enable EPEL repository
+  yum:
+    name: "epel-release"
+    state: "present"
+  tags:
+    - aspects_php
+    - aspects_php_package_install
+    - aspects_php_package_install_yum
+
+- name: yum - install pip
+  yum:
+    name: "python-pip"
+    state: "present"
+  tags:
+    - aspects_php
+    - aspects_php_package_install
+    - aspects_php_package_install_yum
+
+- name: Use pip to install ConfigParser
+  pip:
+    state: "present"
+    name: "ConfigParser"
+  tags:
+    - aspects_php
+    - aspects_php_package_install
+    - aspects_php_package_install_yum
+    - aspects_php_package_install_pip
+
+- name: yum - Install php packages on CentOS 7
+  when:
+    (
+      ansible_distribution == "CentOS" and
+      ansible_distribution_major_version == "7" and
+      (
+        item.value.state == "present" or
+        item.value.state == "latest"
+      )
+    )
+  yum:
+    name: "{{ item.value.CentOS.7 }}"
+    state: "{{ item.value.state }}"
+  with_dict: "{{ aspects_php_packages }}"
+  tags:
+    - aspects_php
+    - aspects_php_package_install
+    - aspects_php_package_install_yum
