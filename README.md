@@ -1,15 +1,13 @@
-aspects_php
-=========
+# aspects_php
+
 Ansible Role to install and configure php, php-cli, apache mod_php, and the pecl libraries.
 
 
-Requirements
-------------
+## Requirements
 
 Set ```hash_behaviour=merge``` in your ansible.cfg file.
 
-Role Variables
---------------
+## Role Variables
 
 See [defaults/main.yml](defaults/main.yml) for details.
 
@@ -19,6 +17,89 @@ See [defaults/main.yml](defaults/main.yml) for details.
 * aspects_php_config
 * aspects_php_packages
 * aspects_php_modules
+
+### aspects_php_config
+A dictionary/hash of php.ini settings that allows you to add, modify, and remove settings.
+
+Use this pattern:
+
+```yaml
+aspects_php_config:
+  <setting key>:
+    enable: <True or False>
+    remove: <True or False>
+    target:
+      <ansible_distribution>:
+        <ansible_distribution_version or ansible_distribution_major_version>: "<target file path>"
+    section: "<The ini section for the setting>"
+    name: "<The setting key/name>"
+    value: "<The setting value>"
+```
+
+For example, to add and/or modify:
+
+```yaml
+aspects_php_config:
+  memory_limit_apache:
+    enable: True
+    target:
+      Ubuntu:
+        1404: "/etc/php5/apache2/99-aspects_php.ini"
+        1604: "/etc/php/7.0/apache2/conf.d/99-aspects_php.ini"
+      Debian:
+        9: "/etc/php/7.0/apache2/conf.d/99-aspects_php.ini"
+      CentOS:
+        7: "/etc/php.d/99-aspects_php.ini"
+    section: "PHP"
+    name: "memory_limit"
+    value: "256M"
+  error_log_cli:
+    enable: True
+    target:
+      Ubuntu:
+        1404: "/etc/php5/cli/99-aspects_php.ini"
+        1604: "/etc/php/7.0/cli/conf.d/99-aspects_php.ini"
+      Debian:
+        9: "/etc/php/7.0/cli/conf.d/99-aspects_php.ini"
+      CentOS:
+        7: "/etc/php.d/99-aspects_php.ini"
+    section: "PHP"
+    name: "error_log"
+    value: "syslog"
+```
+
+#### Removing settings from files
+
+To remove a setting from a file entirely, use something like this:
+```yaml
+aspects_php_config:
+  memory_limit_apache:
+    enable: False
+    remove: True
+    target:
+      Ubuntu:
+        1404: "/etc/php5/apache2/99-aspects_php.ini"
+        1604: "/etc/php/7.0/apache2/conf.d/99-aspects_php.ini"
+      Debian:
+        9: "/etc/php/7.0/apache2/conf.d/99-aspects_php.ini"
+      CentOS:
+        7: "/etc/php.d/99-aspects_php.ini"
+    section: "PHP"
+    name: "memory_limit"
+    value: "256M"
+```
+
+You need to set ```enable``` to ```False```, and ```remove``` to ```True```. Then you just make sure you are targetting the correct files.
+
+#### Configuring Apache vs. CLI
+
+> Note: I found that CentOS 7 does not differentiate between settings for Apache and settings for php-cli.
+
+To configure Apache mod php and php-cli with different values for the same setting, simply add one item for apache, and one item for php-cli. Target the conf.d directory for Apache for the Apache item, and the conf.d directory for php-cli for the php-cli item.
+
+#### Configuring multiple versions of PHP
+
+If you have multiple versions of PHP installed, simply add an item to the ```aspects_php_config``` hash for each version targeting the appropriate conf.d directories.
 
 ### aspects_php_packages
 A dictionary/hash of packages to install.
@@ -70,8 +151,7 @@ aspects_php_packages:
       7: "php-gd"
 ```
 
-Enabling and Disabling mods with php5enmod and php5dismod
--------------------------------------------------------
+## Enabling and Disabling mods with php5enmod and php5dismod
 
 On Ubuntu 14.04 the default means of enabling and disabling php modules is to use the
 php5enmod and php5dismod tools. These tools do more than just create links to ini files.
@@ -89,8 +169,7 @@ For example, the json module would look like this:
         name: "json"
         link: "/etc/php5/apache2/conf.d/20-json.ini"
 
-PECL Module configuration
--------------------------
+## PECL Module configuration
 
 PECL module tasks depend on Ansible knowing where the module .so file lives. This location varies greatly between distributions.
 
@@ -128,8 +207,7 @@ To enable the modules, add the ```extension=mod.so``` line in an appropriate sec
 
 If you have problems, make sure to test the PECL install manually. Also, use ```ansible-playbook -vvvv``` to find out exactly what is going on.
 
-Example Playbook
--------------------------
+## Example Playbook
 
 ```yaml
 - hosts:
@@ -169,18 +247,69 @@ Example Playbook
         CentOS:
           7: "php-gd"
     aspects_php_config:
-      outputbuffering:
-        enable: False
+      allow_url_fopen_apache:
+        enable: True
         target:
+          Ubuntu:
+            1404: "/etc/php5/apache2/conf.d/99-aspects_php.ini"
+            1604: "/etc/php/7.0/apache2/conf.d/99-aspects_php.ini"
           Debian:
-            apache: "/etc/php5/apache2/php.ini"
-          RedHat:
-            apache: "/etc/php.ini"
+            9: "/etc/php/7.0/apache2/conf.d/99-aspects_php.ini"
+          CentOS:
+            7: "/etc/php.d/99-aspects_php.ini"
         section: "PHP"
-        name: "output_buffering"
-        value: "4096"
+        name: "allow_url_fopen"
+        value: "On"
+      allow_url_fopen_cli:
+        enable: True
+        target:
+          Ubuntu:
+            1404: "/etc/php5/cli/conf.d/99-aspects_php.ini"
+            1604: "/etc/php/7.0/cli/conf.d/99-aspects_php.ini"
+          Debian:
+            9: "/etc/php/7.0/cli/conf.d/99-aspects_php.ini"
+        section: "PHP"
+        name: "allow_url_fopen"
+        value: "On"
+      memory_limit_apache:
+        enable: True
+        target:
+          Ubuntu:
+            1404: "/etc/php5/apache2/conf.d/99-aspects_php.ini"
+            1604: "/etc/php/7.0/apache2/conf.d/99-aspects_php.ini"
+          Debian:
+            9: "/etc/php/7.0/apache2/conf.d/99-aspects_php.ini"
+          CentOS:
+            7: "/etc/php.d/99-aspects_php.ini"
+        section: "PHP"
+        name: "memory_limit"
+        value: "256M"
+      error_log_cli:
+        enable: True
+        target:
+          Ubuntu:
+            1404: "/etc/php5/cli/conf.d/99-aspects_php.ini"
+            1604: "/etc/php/7.0/cli/conf.d/99-aspects_php.ini"
+          Debian:
+            9: "/etc/php/7.0/cli/conf.d/99-aspects_php.ini"
+        section: "PHP"
+        name: "error_log"
+        value: "syslog"
+      memory_limit_cli:
+        enable: True
+        target:
+          Ubuntu:
+            1404: "/etc/php5/cli/conf.d/99-aspects_php.ini"
+            1604: "/etc/php/7.0/cli/conf.d/99-aspects_php.ini"
+          Debian:
+            9: "/etc/php/7.0/cli/conf.d/99-aspects_php.ini"
+          CentOS:
+            7: "/etc/php.d/99-aspects_php.ini"
+        section: "PHP"
+        name: "memory_limit"
+        value: "256M"
 ```
-License
--------
+
+## License
 
 MIT

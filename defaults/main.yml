@@ -18,64 +18,16 @@ aspects_php_use_pecl: False
 # the aspects_php_modules dictionary.
 aspects_php_modules: {}
 
+aspects_php_custom_config_directory:
+  Ubuntu:
+    1604: "/etc/php/7.0/cli/conf.d"
+    1404: "/etc/php5/cli/conf.d"
+  Debian:
+    9: "/etc/php/7.0/cli/conf.d"
+  CentOS:
+    7: "/etc/php.d"
 
-# Different distributions place the appropriate php.ini files in different locations.
-# Thus, we have to tell Ansible which ini file to use.
-aspects_php_config:
-  memory_limit:
-    enable: True
-    target:
-      Debian:
-        apache: "/etc/php5/apache2/php.ini"
-        cli: "/etc/php5/cli/php.ini"
-      Ubuntu1604:
-        apache: "/etc/php/7.0/apache2/php.ini"
-        cli: "/etc/php/7.0/cli/php.ini"
-      RedHat:
-        apache: "/etc/php.ini"
-        cli: "/etc/php.ini"
-    section: "PHP"
-    name: "memory_limit"
-    value: "256M"
-  error_log:
-    enable: True
-    target:
-      Debian:
-        apache: "/etc/php5/apache2/php.ini"
-        cli: "/etc/php5/cli/php.ini"
-      Ubuntu1604:
-        apache: "/etc/php/7.0/apache2/php.ini"
-        cli: "/etc/php/7.0/cli/php.ini"
-      RedHat:
-        apache: "/etc/php.ini"
-        cli: "/etc/php.ini"
-    section: "PHP"
-    name: "error_log"
-    value: "syslog"
-  allow_url_fopen:
-    enable: True
-    target:
-      Debian:
-        apache: "/etc/php5/apache2/php.ini"
-      Ubuntu1604:
-        apache: "/etc/php/7.0/apache2/php.ini"
-      RedHat:
-        apache: "/etc/php.ini"
-    section: "PHP"
-    name: "allow_url_fopen"
-    value: "Off"
-  disable_functions:
-    enable: True
-    target:
-      Debian:
-        apache: "/etc/php5/apache2/php.ini"
-      Ubuntu1604:
-        apache: "/etc/php/7.0/apache2/php.ini"
-      RedHat:
-        apache: "/etc/php.ini"
-    section: "PHP"
-    name: "disable_functions"
-    value: "apache_child_terminate,apache_setenv,define_syslog_variables,escapeshellarg,escapeshellcmd,eval,exec,fp,fput,ftp_connect,ftp_exec,ftp_get,ftp_login,ftp_nb_fput,ftp_put,ftp_raw,ftp_rawlist,highlight_file,ini_alter,ini_get_all,ini_restore,inject_code,mysql_pconnect,passthru,php_uname,phpAds_remoteInfo,phpAds_XmlRpc,phpAds_xmlrpcDecode,phpAds_xmlrpcEncode,popen,posix_getpwuid,posix_kill,posix_mkfifo,posix_setpgid,posix_setsid,posix_setuid,posix_setuid,posix_uname,proc_close,proc_get_status,proc_nice,proc_open,proc_terminate,shell_exec,system,xmlrpc_entity_decode,pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,"
+aspects_php_config: {}
 
 # PECL Packages:
 # Find names at: http://pecl.php.net/packages.php
