@@ -14,7 +14,6 @@ Set ```hash_behaviour=merge``` in your ansible.cfg file.
 * aspects_php_cli_installed
 * aspects_php_config
 * aspects_php_packages
-* aspects_php_modules
 
 ### aspects_php_config
 A dictionary/hash of php.ini settings that allows you to add, modify, and remove settings.

@@ -35,8 +35,3 @@
   tags:
     - aspects_php
     - aspects_php_remove_package_managed_ini_files
-
-# - include: TrustyModManagement.yml
-#   when: (ansible_os_family == "Debian" and (ansible_lsb.release == "14.04" or ansible_lsb.major_release == "7"))  or ansible_os_family == "Linuxmint"
-#   tags:
-#       - aspects_php
