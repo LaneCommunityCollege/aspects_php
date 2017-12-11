@@ -9,8 +9,6 @@ Set ```hash_behaviour=merge``` in your ansible.cfg file.
 
 ## Role Variables
 
-See [defaults/main.yml](defaults/main.yml) for details.
-
 * aspects_php_enabled
 * aspects_php_apache_installed
 * aspects_php_cli_installed
@@ -89,7 +87,7 @@ aspects_php_config:
     value: "256M"
 ```
 
-You need to set ```enable``` to ```False```, and ```remove``` to ```True```. Then you just make sure you are targetting the correct files.
+You need to set ```enable``` to ```False```, and ```remove``` to ```True```. Then you just make sure you are targeting the correct files.
 
 #### Configuring Apache vs. CLI
 
@@ -151,23 +149,34 @@ aspects_php_packages:
       7: "php-gd"
 ```
 
-## Enabling and Disabling mods with php5enmod and php5dismod
+### aspects_php_remove_package_managed_ini_files
 
-On Ubuntu 14.04 the default means of enabling and disabling php modules is to use the
-php5enmod and php5dismod tools. These tools do more than just create links to ini files.
-Thus there is a custom task file that uses these tools. These tasks only run on Ubuntu 14.04
-and Debian 7.
+When you install a php package from the various OS repositories, the packages often install default .ini configuration files. Debian/Ubuntu use the mods-available/mods-enabled symlink method, and CentOS just places a straight .ini file in the php.d directory. This presents a problem if you do not wish to use those files for custom configuration settings.
 
-To use this functionality, simply find the module name and the path of the link php5enmod creates,
-then add it to the ```aspects_php_modules``` dictionary.
+That is what this dictionary/hash is for. It is a list of files/symlinks that you want removed from your system.
 
-For example, the json module would look like this:
+```yaml
+aspects_php_remove_package_managed_ini_files:
+  <some key that makes sense>: "<path to file or symlink you want removed>"
+```
 
-    aspects_php_modules:
-      json:
-        state: "enabled"
-        name: "json"
-        link: "/etc/php5/apache2/conf.d/20-json.ini"
+For example:
+
+```yaml
+aspects_php_remove_package_managed_ini_files:
+  modgdcentos: "/etc/php.d/gd.ini"
+  modgddebian: "/etc/php/7.0/apache2/conf.d/20-gd.ini"
+```
+
+Once the files are removed, you can restart Apache and only your custom settings from ```aspects_php_config``` will apply.
+
+## Enabling and Disabling PHP Modules
+
+If you need to enable or disable a module that resides in your OS's package repositories, simply install or remove the associated package using the ```aspects_php_packages``` variable.
+
+> Note: Depending on how your package manager deals with dependencies, you may need to add a second package for removal to the list. I.E. Debian 9's php-ldap package has a dependency on the php7.0-ldap package. The ldap module does not get disabled until you remove both packages.
+
+Then make sure you have removed any custom configuration for that module from the ```aspects_php_config``` variable.
 
 ## PECL Module configuration
 

@@ -28,6 +28,7 @@ aspects_php_custom_config_directory:
     7: "/etc/php.d"
 
 aspects_php_config: {}
+aspects_php_remove_package_managed_ini_files: {}
 
 # PECL Packages:
 # Find names at: http://pecl.php.net/packages.php

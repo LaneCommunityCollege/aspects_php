@@ -6,6 +6,12 @@
     - aspects_php
     - aspects_php_package_install
 
+- name: "remove php packages"
+  include: "{{ ansible_pkg_mgr}}RemovePackages.yml"
+  tags:
+    - aspects_php
+    - aspects_php_package_remove
+
 - include: pecl.yml
   when: aspects_php_use_pecl
   tags:
@@ -24,7 +30,13 @@
     - aspects_php
     - aspects_php_config
 
-- include: TrustyModManagement.yml
-  when: (ansible_os_family == "Debian" and (ansible_lsb.release == "14.04" or ansible_lsb.major_release == "7"))  or ansible_os_family == "Linuxmint"
+- name: "Include 'Remove files listed in aspects_php_remove_package_managed_ini_files' tasks"
+  include: removePackageManagedINIFiles.yml
   tags:
-      - aspects_php
+    - aspects_php
+    - aspects_php_remove_package_managed_ini_files
+
+# - include: TrustyModManagement.yml
+#   when: (ansible_os_family == "Debian" and (ansible_lsb.release == "14.04" or ansible_lsb.major_release == "7"))  or ansible_os_family == "Linuxmint"
+#   tags:
+#       - aspects_php

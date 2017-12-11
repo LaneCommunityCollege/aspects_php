@@ -1,0 +1,10 @@
+---
+- name: Remove files listed in aspects_php_remove_package_managed_ini_files
+  when: item.value != False
+  file:
+    state: "absent"
+    path: "{{ item.value }}"
+  with_dict: "{{ aspects_php_remove_package_managed_ini_files }}"
+  tags:
+    - aspects_php
+    - aspects_php_remove_package_managed_ini_files
