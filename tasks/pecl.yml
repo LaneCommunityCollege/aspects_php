@@ -1,46 +1,24 @@
 ---
 # This will fail if php-devel and php-pear are not installed.
-
-# Run pecl channel-update pecl.php.net
-- name: update pecl channels.
-  shell: pecl update-channels
+- name: "Install PEAR or PECL package"
+  when: item.value.state == "present" or item.value.state == "latest"
+  pear:
+    name: "{{ item.value.name }}"
+    state: "{{ item.value.state }}"
+  with_dict: "{{ aspects_php_pecl_packages }}"
   tags:
-  - aspects_php
-  - aspects_php_pecl
-# The pecl install tasks have a line break piped into them
-# so that the installer will automatically use the default options
-# that pecl install presents.
+    - aspects_php
+    - aspects_php_pecl
+    - aspects_php_pecl_packages
 
-- name: Debian - install pecl packages
+- name: "Remove PEAR or PECL package"
   when:
-    (ansible_os_family == "Debian" or ansible_os_family == "Linuxmint") and
-    item.value.state == "present" or
-    item.value.state == "latest"
-  shell: printf "\n" | pecl install "{{ item.value.name }}"
-  args:
-    creates: "{{ item.value.linecreated.Debian }}"
+    - item.value.state == "absent"
+  pear:
+    name: "{{ item.value.name }}"
+    state: "{{ item.value.state }}"
   with_dict: "{{ aspects_php_pecl_packages }}"
   tags:
-  - aspects_php
-  - aspects_php_pecl
-
-- name: RedHat - install pecl packages
-  when:
-    ansible_os_family == "RedHat" and
-    item.value.state == "present" or
-    item.value.state == "latest"
-  shell: printf "\n" | pecl install "{{ item.value.name }}"
-  args:
-    creates: "{{ item.value.linecreated.RedHat }}"
-  with_dict: "{{ aspects_php_pecl_packages }}"
-  tags:
-  - aspects_php
-  - aspects_php_pecl
-
-- name: Upgrade pecl packages
-  when: item.value.state == "latest"
-  shell: "pecl upgrade {{ item.value.name }}"
-  with_dict: "{{ aspects_php_pecl_packages }}"
-  tags:
-  - aspects_php
-  - aspects_php_pecl
+    - aspects_php
+    - aspects_php_pecl
+    - aspects_php_pecl_packages
