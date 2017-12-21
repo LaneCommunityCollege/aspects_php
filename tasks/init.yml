@@ -12,11 +12,12 @@
     - aspects_php
     - aspects_php_package_remove
 
-- include: pecl.yml
-  when: aspects_php_use_pecl
-  tags:
-    - aspects_php
-    - aspects_php_pecl
+# - include: pecl.yml
+#   when: aspects_php_use_pecl
+#   tags:
+#     - aspects_php
+#     - aspects_php_pecl
+#     - aspects_php_pecl_packages
 
 - name: "Set ini file configuration"
   include: iniSetConfiguration.yml
