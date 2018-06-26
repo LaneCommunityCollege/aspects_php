@@ -33,8 +33,24 @@
     - aspects_php_apache_installed
     - ansible_distribution == "Ubuntu"
     - ansible_distribution_version == "14.04"
+    - not aspects_php_using_newer_version
   apt:
     pkg: "libapache2-mod-php5"
+    state: "present"
+    cache_valid_time: "14400"
+  tags:
+    - aspects_php
+    - aspects_php_package_install
+    - aspects_php_package_install_apt
+
+- name: apt - Install libapache2-mod-php on Ubuntu 14.04
+  when:
+    - aspects_php_apache_installed
+    - ansible_distribution == "Ubuntu"
+    - ansible_distribution_version == "14.04"
+    - aspects_php_using_newer_version
+  apt:
+    pkg: "libapache2-mod-php"
     state: "present"
     cache_valid_time: "14400"
   tags:

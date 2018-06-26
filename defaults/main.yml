@@ -39,3 +39,5 @@ aspects_php_pecl_packages:
     linecreated:
       Debian: "/usr/lib/php5/20121212/uploadprogress.so"
       RedHat: "/usr/lib64/php/modules/uploadprogress.so"
+
+aspects_php_using_newer_version: False

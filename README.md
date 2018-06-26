@@ -185,7 +185,12 @@ Set to ```False``` to skip PECL/PEAR installation and removal tasks.
 
 <b>Broken.</b>
 
-#### Requirements
+### aspects_php_using_newer_version
+Boolean. Default: `False`.
+
+Set to `True` when using php 7 or greater so that the proper `libapache2-mod-php` will be installed.
+
+## Requirements
 
 ```aspects_php_use_pecl``` set to ```True```.
 
