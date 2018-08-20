@@ -1,16 +1,6 @@
 ---
 # file: roles/php/tasks/main.yml
-- name: "install php packages"
-  include: "{{ ansible_pkg_mgr}}InstallPackages.yml"
-  tags:
-    - aspects_php
-    - aspects_php_package_install
 
-- name: "remove php packages"
-  include: "{{ ansible_pkg_mgr}}RemovePackages.yml"
-  tags:
-    - aspects_php
-    - aspects_php_package_remove
 
 # - include: pecl.yml
 #   when: aspects_php_use_pecl

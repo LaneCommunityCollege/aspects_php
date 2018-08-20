@@ -91,7 +91,7 @@ aspects_php_config:
     value: "256M"
 ```
 
-You need to set ```enable``` to ```False```, and ```remove``` to ```True```. Then you just make sure you are targeting the correct files.
+You need to set `enable` to `False`, and `remove` to `True`. Then you just make sure you are targeting the correct files.
 
 #### Configuring Apache vs. CLI
 
@@ -101,57 +101,7 @@ To configure Apache mod php and php-cli with different values for the same setti
 
 #### Configuring multiple versions of PHP
 
-If you have multiple versions of PHP installed, simply add an item to the ```aspects_php_config``` hash for each version targeting the appropriate conf.d directories.
-
-### aspects_php_packages
-A dictionary/hash of packages to install.
-
-Use this pattern:
-
-```yaml
-aspects_php_packages:
-  <package key>:
-    state: "<present or latest>"
-    <ansible_distribution>:
-      <ansible_distribution_version or ansible_distribution_major_version>: "<package name>"
-```
-Set ```state``` to "default" if you wish to list a package but not install it.
-
-Check the [tasks/aptInstallpackages.yml](aptInstallpackages.yml) or [tasks/yumInstallPackages.yml](yumInstallPackages.yml) files to find out what values are accepted for the ```ansible_distribution_*``` variables.
-
-
-For example:
-
-```yaml
-aspects_php_packages:
-  php:
-    state: "present"
-    Ubuntu:
-      1604: "php"
-      1404: "php5"
-    Debian:
-      9: "php"
-    CentOS:
-      7: "php"
-  phpcurl:
-    state: "present"
-    Ubuntu:
-      1404: "php5-curl"
-      1604: "php-curl"
-    Debian:
-      9: "php-curl"
-    CentOS:
-      7: "php"
-  phpgd:
-    state: "present"
-    Ubuntu:
-      1404: "php5-gd"
-      1604: "php-gd"
-    Debian:
-      9: "php-gd"
-    CentOS:
-      7: "php-gd"
-```
+If you have multiple versions of PHP installed, simply add an item to the `aspects_php_config` hash for each version targeting the appropriate conf.d directories.
 
 ### aspects_php_remove_package_managed_ini_files
 
@@ -172,14 +122,14 @@ aspects_php_remove_package_managed_ini_files:
   modgddebian: "/etc/php/7.0/apache2/conf.d/20-gd.ini"
 ```
 
-Once the files are removed, you can restart Apache and only your custom settings from ```aspects_php_config``` will apply.
+Once the files are removed, you can restart Apache and only your custom settings from `aspects_php_config` will apply.
 
 ### aspects_php_use_pecl
-Default is ```False```.
+Default is `False`.
 
-Set to ```True``` to run PECL/PEAR installation or removal tasks.
+Set to `True` to run PECL/PEAR installation or removal tasks.
 
-Set to ```False``` to skip PECL/PEAR installation and removal tasks.
+Set to `False` to skip PECL/PEAR installation and removal tasks.
 
 ### aspects_php_pecl_packages
 
@@ -192,9 +142,9 @@ Set to `True` when using php 7 or greater so that the proper `libapache2-mod-php
 
 ## Requirements
 
-```aspects_php_use_pecl``` set to ```True```.
+`aspects_php_use_pecl` set to `True`.
 
-The php-dev and php-pear system packages must be installed for PECL/PEAR to work. Add the following to your ```aspects_php_packages``` dictionary:
+The php-dev and php-pear system packages must be installed for PECL/PEAR to work. Add the following to your `aspects_packages_packages` dictionary:
 
 ```yaml
   phpdev:
@@ -237,7 +187,7 @@ aspects_php_pecl_packages:
 
 #### Enabling the installed module
 
-Once the package is installed, you will need to enable the module using the ```aspects_php_config``` dictionary.
+Once the package is installed, you will need to enable the module using the `aspects_php_config` dictionary.
 
 For example:
 
@@ -262,68 +212,78 @@ aspects_php_config:
 
 ## Enabling and Disabling PHP Modules
 
-If you need to enable or disable a module that resides in your OS's package repositories, simply install or remove the associated package using the ```aspects_php_packages``` variable.
+If you need to enable or disable a module that resides in your OS's package repositories, simply install or remove the associated package using the `aspects_php_packages` variable.
 
 > Note: Depending on how your package manager deals with dependencies, you may need to add a second package for removal to the list. I.E. Debian 9's php-ldap package has a dependency on the php7.0-ldap package. The ldap module does not get disabled until you remove both packages.
 
-Then make sure you have removed any custom configuration for that module from the ```aspects_php_config``` variable.
+Then make sure you have removed any custom configuration for that module from the `aspects_php_config` variable.
+
+## Dependencies
+### aspects_packages
+[aspects_packages](https://github.com/LaneCommunityCollege/aspects_packages) is used to manage system packages.
 
 ## Example Playbook
 
 ```yaml
 - hosts:
-  - hostname
+  - aspects_php:!aspectsoraclelinux6
+  #  - aspectscentos7
+  #  - aspectstrusty
+  #  - aspectsxenial
+  #  - aspectsstretch
+  #  - aspectsoraclelinux7
+  #  - aspectbionic
   roles:
   - aspects_php
   vars:
+    aspects_packages_enabled: True
     aspects_php_enabled: True
     aspects_php_apache_installed: True
     aspects_php_cli_installed: True
-    aspects_php_packages:
-      php:
-        state: "present"
-        Ubuntu:
-          1604: "php"
-          1404: "php5"
-        Debian:
-          9: "php"
-        CentOS:
-          7: "php"
+    aspects_packages_packages:
       phpdev:
         state: "present"
         Ubuntu:
           1604: "php-dev"
+          1804: "php-dev"
           1404: "php5-dev"
         Debian:
           9: "php-dev"
         CentOS:
+          7: "php-devel"
+        OracleLinux:
           7: "php-devel"
       phppear:
         state: "present"
         Ubuntu:
           1404: "php-pear"
           1604: "php-pear"
+          1804: "php-pear"
         Debian:
           9: "php-pear"
         CentOS:
+          7: "php-pear"
+        OracleLinux:
           7: "php-pear"
       phpcurl:
         state: "present"
         Ubuntu:
           1404: "php5-curl"
           1604: "php-curl"
+          1804: "php-curl"
         Debian:
           9: "php-curl"
-        CentOS:
-          7: "php"
       phpgd:
         state: "present"
         Ubuntu:
           1404: "php5-gd"
           1604: "php-gd"
+          1804: "php-gd"
         Debian:
           9: "php-gd"
         CentOS:
+          7: "php-gd"
+        OracleLinux:
           7: "php-gd"
     aspects_php_pecl_packages:
       uploadprogress:
@@ -336,9 +296,12 @@ Then make sure you have removed any custom configuration for that module from th
           Ubuntu:
             1404: "/etc/php5/apache2/conf.d/99-aspects_php.ini"
             1604: "/etc/php/7.0/apache2/conf.d/99-aspects_php.ini"
+            1804: "/etc/php/7.2/apache2/conf.d/99-aspects_php.ini"
           Debian:
             9: "/etc/php/7.0/apache2/conf.d/99-aspects_php.ini"
           CentOS:
+            7: "/etc/php.d/99-aspects_php.ini"
+          OracleLinux:
             7: "/etc/php.d/99-aspects_php.ini"
         section: "PHP"
         name: "allow_url_fopen"
@@ -349,6 +312,7 @@ Then make sure you have removed any custom configuration for that module from th
           Ubuntu:
             1404: "/etc/php5/cli/conf.d/99-aspects_php.ini"
             1604: "/etc/php/7.0/cli/conf.d/99-aspects_php.ini"
+            1804: "/etc/php/7.2/cli/conf.d/99-aspects_php.ini"
           Debian:
             9: "/etc/php/7.0/cli/conf.d/99-aspects_php.ini"
         section: "PHP"
@@ -360,9 +324,12 @@ Then make sure you have removed any custom configuration for that module from th
           Ubuntu:
             1404: "/etc/php5/apache2/conf.d/99-aspects_php.ini"
             1604: "/etc/php/7.0/apache2/conf.d/99-aspects_php.ini"
+            1804: "/etc/php/7.2/apache2/conf.d/99-aspects_php.ini"
           Debian:
             9: "/etc/php/7.0/apache2/conf.d/99-aspects_php.ini"
           CentOS:
+            7: "/etc/php.d/99-aspects_php.ini"
+          OracleLinux:
             7: "/etc/php.d/99-aspects_php.ini"
         section: "PHP"
         name: "memory_limit"
@@ -373,6 +340,7 @@ Then make sure you have removed any custom configuration for that module from th
           Ubuntu:
             1404: "/etc/php5/cli/conf.d/99-aspects_php.ini"
             1604: "/etc/php/7.0/cli/conf.d/99-aspects_php.ini"
+            1804: "/etc/php/7.2/cli/conf.d/99-aspects_php.ini"
           Debian:
             9: "/etc/php/7.0/cli/conf.d/99-aspects_php.ini"
         section: "PHP"
@@ -384,22 +352,28 @@ Then make sure you have removed any custom configuration for that module from th
           Ubuntu:
             1404: "/etc/php5/cli/conf.d/99-aspects_php.ini"
             1604: "/etc/php/7.0/cli/conf.d/99-aspects_php.ini"
+            1804: "/etc/php/7.2/cli/conf.d/99-aspects_php.ini"
           Debian:
             9: "/etc/php/7.0/cli/conf.d/99-aspects_php.ini"
           CentOS:
+            7: "/etc/php.d/99-aspects_php.ini"
+          OracleLinux:
             7: "/etc/php.d/99-aspects_php.ini"
         section: "PHP"
         name: "memory_limit"
         value: "256M"
       uploadprogress:
-        enable: True
+        enable: False
         target:
           Ubuntu:
             1404: "/etc/php5/apache2/99-aspects_php.ini"
             1604: "/etc/php/7.0/apache2/conf.d/99-aspects_php.ini"
+            1804: "/etc/php/7.2/apache2/conf.d/99-aspects_php.ini"
           Debian:
             9: "/etc/php/7.0/apache2/conf.d/99-aspects_php.ini"
           CentOS:
+            7: "/etc/php.d/99-aspects_php.ini"
+          OracleLinux:
             7: "/etc/php.d/99-aspects_php.ini"
         section: "uploadprogress"
         name: "uploadprogress"

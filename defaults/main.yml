@@ -1,14 +1,21 @@
 ---
+aspects_packages_packages:
+  php:
+    state: "present"
+    Ubuntu:
+      1404: "php5-cli"
+      1604: "php-cli"
+      1804: "php-cli"
+    CentOS:
+      7: "php-cli"
+    OracleLinux:
+      7: "php-cli"
 # To use this role at all, you need to set aspects_php_enabled to True.
 aspects_php_enabled: False
 # If you wish the Apache php module installed, set aspects_php_apache_installed to True.
 aspects_php_apache_installed: False
 # If you want to install the php command line tool, set aspects_php_cli_installed to True.
 aspects_php_cli_installed: False
-
-# Use this dictionary to list packages for installation.
-# See README.md for details.
-aspects_php_packages: {}
 
 # Since PECL can be ugly, we disable the PECL tasks by default.
 # Set aspects_php_use_pecl to True if you wish to use these tasks.
