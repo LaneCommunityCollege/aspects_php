@@ -64,6 +64,28 @@
     - aspects_php
     - aspects_php_config
 
+- name: Ubuntu 18.04 - set php.ini options
+  when:
+    aspects_php_config is defined and
+    item.value.enable == True and
+    ansible_distribution == "Ubuntu" and
+    ansible_distribution_version == "18.04" and
+    item.value.target.Ubuntu is defined and
+    item.value.target.Ubuntu.1804 is defined
+  ini_file:
+    state: "present"
+    dest: "{{ item.value.target.Ubuntu.1804 }}"
+    option: "{{ item.value.name }}"
+    value: "{{ item.value.value }}"
+    section: "{{ item.value.section }}"
+    owner: 0
+    group: 0
+    mode: "600"
+  with_dict: "{{ aspects_php_config }}"
+  tags:
+  - aspects_php
+  - aspects_php_config
+
 - name: Debian 9 - set php.ini options
   when:
     aspects_php_config is defined and
