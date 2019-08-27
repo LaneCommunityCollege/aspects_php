@@ -5,7 +5,7 @@
   pear:
     name: "{{ item.value.name }}"
     state: "{{ item.value.state }}"
-  with_dict: "{{ aspects_php_pecl_packages }}"
+  loop: "{{ aspects_php_pecl_packages|dict2items }}"
   tags:
     - aspects_php
     - aspects_php_pecl
@@ -17,7 +17,7 @@
   pear:
     name: "{{ item.value.name }}"
     state: "{{ item.value.state }}"
-  with_dict: "{{ aspects_php_pecl_packages }}"
+  loop: "{{ aspects_php_pecl_packages|dict2items }}"
   tags:
     - aspects_php
     - aspects_php_pecl

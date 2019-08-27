@@ -4,7 +4,7 @@
   file:
     state: "absent"
     path: "{{ item.value }}"
-  with_dict: "{{ aspects_php_remove_package_managed_ini_files }}"
+  loop: "{{ aspects_php_remove_package_managed_ini_files|dict2items }}"
   tags:
     - aspects_php
     - aspects_php_remove_package_managed_ini_files

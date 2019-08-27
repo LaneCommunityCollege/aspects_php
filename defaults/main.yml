@@ -3,7 +3,6 @@ aspects_packages_packages:
   php:
     state: "present"
     Ubuntu:
-      1404: "php5-cli"
       1604: "php-cli"
       1804: "php-cli"
     CentOS:
@@ -28,7 +27,7 @@ aspects_php_modules: {}
 aspects_php_custom_config_directory:
   Ubuntu:
     1604: "/etc/php/7.0/cli/conf.d"
-    1404: "/etc/php5/cli/conf.d"
+    1804: "/etc/php/7.2/cli/conf.d"
   Debian:
     9: "/etc/php/7.0/cli/conf.d"
   CentOS:
@@ -39,12 +38,12 @@ aspects_php_remove_package_managed_ini_files: {}
 
 # PECL Packages:
 # Find names at: http://pecl.php.net/packages.php
-aspects_php_pecl_packages:
-  uploadprogress:
-    state: "default"
-    name: "uploadprogress"
-    linecreated:
-      Debian: "/usr/lib/php5/20121212/uploadprogress.so"
-      RedHat: "/usr/lib64/php/modules/uploadprogress.so"
+aspects_php_pecl_packages: {}
+#  uploadprogress:
+#    state: "default"
+#    name: "uploadprogress"
+#    linecreated:
+#      Debian: "/usr/lib/php5/20121212/uploadprogress.so"
+#      RedHat: "/usr/lib64/php/modules/uploadprogress.so"
 
 aspects_php_using_newer_version: False

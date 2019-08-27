@@ -1,13 +1,13 @@
 - name: CentOS 7 - Remove php.ini options from target files
   when:
-    aspects_php_config is defined and
-    item.value.enable != True and
-    item.value.remove is defined and
-    item.value.remove == True and
-    ansible_distribution == "CentOS" and
-    ansible_distribution_major_version == "7" and
-    item.value.target.CentOS is defined and
-    item.value.target.CentOS.7 is defined
+    - aspects_php_config is defined
+    - item.value.enable != True
+    - item.value.remove is defined
+    - item.value.remove == True
+    - ansible_distribution == "CentOS"
+    - ansible_distribution_major_version == "7"
+    - item.value.target.CentOS is defined
+    - item.value.target.CentOS.7 is defined
   ini_file:
     state: "absent"
     dest: "{{ item.value.target.CentOS.7 }}"
@@ -17,45 +17,45 @@
     owner: 0
     group: 0
     mode: "600"
-  with_dict: "{{ aspects_php_config }}"
+  loop: "{{ aspects_php_config|dict2items }}"
   tags:
     - aspects_php
     - aspects_php_config
 
-- name: Ubuntu 14.04 - Remove php.ini options from target files
+- name: OracleLinux 7 - Remove php.ini options from target files
   when:
-    aspects_php_config is defined and
-    item.value.enable != True and
-    item.value.remove is defined and
-    item.value.remove == True and
-    ansible_distribution == "Ubuntu" and
-    ansible_distribution_version == "14.04" and
-    item.value.target.Ubuntu is defined and
-    item.value.target.Ubuntu.1404 is defined
+    - aspects_php_config is defined
+    - item.value.enable != True
+    - item.value.remove is defined
+    - item.value.remove == True
+    - ansible_distribution == "OracleLinux"
+    - ansible_distribution_major_version == "7"
+    - item.value.target.CentOS is defined
+    - item.value.target.CentOS.7 is defined
   ini_file:
     state: "absent"
-    dest: "{{ item.value.target.Ubuntu.1404 }}"
+    dest: "{{ item.value.target.CentOS.7 }}"
     option: "{{ item.value.name }}"
     value: "{{ item.value.value }}"
     section: "{{ item.value.section }}"
     owner: 0
     group: 0
     mode: "600"
-  with_dict: "{{ aspects_php_config }}"
+  loop: "{{ aspects_php_config|dict2items }}"
   tags:
     - aspects_php
     - aspects_php_config
 
 - name: Ubuntu 16.04 - Remove php.ini options from target files
   when:
-    aspects_php_config is defined and
-    item.value.enable != True and
-    item.value.remove is defined and
-    item.value.remove == True and
-    ansible_distribution == "Ubuntu" and
-    ansible_distribution_version == "16.04" and
-    item.value.target.Ubuntu is defined and
-    item.value.target.Ubuntu.1604 is defined
+    - aspects_php_config is defined
+    - item.value.enable != True
+    - item.value.remove is defined
+    - item.value.remove == True
+    - ansible_distribution == "Ubuntu"
+    - ansible_distribution_version == "16.04"
+    - item.value.target.Ubuntu is defined
+    - item.value.target.Ubuntu.1604 is defined
   ini_file:
     state: "absent"
     dest: "{{ item.value.target.Ubuntu.1604 }}"
@@ -65,21 +65,21 @@
     owner: 0
     group: 0
     mode: "600"
-  with_dict: "{{ aspects_php_config }}"
+  loop: "{{ aspects_php_config|dict2items }}"
   tags:
     - aspects_php
     - aspects_php_config
 
 - name: Ubuntu 18.04 - Remove php.ini options from target files
   when:
-    aspects_php_config is defined and
-    item.value.enable != True and
-    item.value.remove is defined and
-    item.value.remove == True and
-    ansible_distribution == "Ubuntu" and
-    ansible_distribution_version == "18.04" and
-    item.value.target.Ubuntu is defined and
-    item.value.target.Ubuntu.1804 is defined
+    - aspects_php_config is defined
+    - item.value.enable != True
+    - item.value.remove is defined
+    - item.value.remove == True
+    - ansible_distribution == "Ubuntu"
+    - ansible_distribution_version == "18.04"
+    - item.value.target.Ubuntu is defined
+    - item.value.target.Ubuntu.1804 is defined
   ini_file:
     state: "absent"
     dest: "{{ item.value.target.Ubuntu.1804 }}"
@@ -89,21 +89,21 @@
     owner: 0
     group: 0
     mode: "600"
-  with_dict: "{{ aspects_php_config }}"
+  loop: "{{ aspects_php_config|dict2items }}"
   tags:
-  - aspects_php
-  - aspects_php_config
+    - aspects_php
+    - aspects_php_config
 
 - name: Debian 9 - Remove php.ini options from target files
   when:
-    aspects_php_config is defined and
-    item.value.enable != True and
-    item.value.remove is defined and
-    item.value.remove == True and
-    ansible_distribution == "Debian" and
-    ansible_distribution_major_version == "9" and
-    item.value.target.Debian is defined and
-    item.value.target.Debian.9 is defined
+    - aspects_php_config is defined
+    - item.value.enable != True
+    - item.value.remove is defined
+    - item.value.remove == True
+    - ansible_distribution == "Debian"
+    - ansible_distribution_major_version == "9"
+    - item.value.target.Debian is defined
+    - item.value.target.Debian.9 is defined
   ini_file:
     state: "absent"
     dest: "{{ item.value.target.Debian.9 }}"
@@ -113,7 +113,7 @@
     owner: 0
     group: 0
     mode: "600"
-  with_dict: "{{ aspects_php_config }}"
+  loop: "{{ aspects_php_config|dict2items }}"
   tags:
     - aspects_php
     - aspects_php_config
