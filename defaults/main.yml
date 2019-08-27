@@ -11,10 +11,6 @@ aspects_packages_packages:
       7: "php-cli"
 # To use this role at all, you need to set aspects_php_enabled to True.
 aspects_php_enabled: False
-# If you wish the Apache php module installed, set aspects_php_apache_installed to True.
-aspects_php_apache_installed: False
-# If you want to install the php command line tool, set aspects_php_cli_installed to True.
-aspects_php_cli_installed: False
 
 # Since PECL can be ugly, we disable the PECL tasks by default.
 # Set aspects_php_use_pecl to True if you wish to use these tasks.
@@ -35,15 +31,3 @@ aspects_php_custom_config_directory:
 
 aspects_php_config: {}
 aspects_php_remove_package_managed_ini_files: {}
-
-# PECL Packages:
-# Find names at: http://pecl.php.net/packages.php
-aspects_php_pecl_packages: {}
-#  uploadprogress:
-#    state: "default"
-#    name: "uploadprogress"
-#    linecreated:
-#      Debian: "/usr/lib/php5/20121212/uploadprogress.so"
-#      RedHat: "/usr/lib64/php/modules/uploadprogress.so"
-
-aspects_php_using_newer_version: False
