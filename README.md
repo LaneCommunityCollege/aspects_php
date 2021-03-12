@@ -48,8 +48,11 @@ aspects_php_config:
       Ubuntu:
         1604: "/etc/php/7.0/apache2/conf.d/99-aspects_php.ini"
         1804: "/etc/php/7.2/apache2/conf.d/99-aspects_php.ini"
+        2004: "/etc/php/7.4/apache2/conf.d/99-aspects_php.ini"
+        2004: "/etc/php/7.4/apache2/conf.d/99-aspects_php.ini"
       Debian:
         9: "/etc/php/7.0/apache2/conf.d/99-aspects_php.ini"
+        10: "/etc/php/7.3/apache2/conf.d/99-aspects_php.ini"
       CentOS:
         7: "/etc/php.d/99-aspects_php.ini"
       OracleLinux:
@@ -74,8 +77,11 @@ aspects_php_config:
       Ubuntu:
         1604: "/etc/php/7.0/apache2/conf.d/99-aspects_php.ini"
         1804: "/etc/php/7.2/apache2/conf.d/99-aspects_php.ini"
+        2004: "/etc/php/7.4/apache2/conf.d/99-aspects_php.ini"
+        2004: "/etc/php/7.4/apache2/conf.d/99-aspects_php.ini"
       Debian:
         9: "/etc/php/7.0/apache2/conf.d/99-aspects_php.ini"
+        10: "/etc/php/7.3/apache2/conf.d/99-aspects_php.ini"
       CentOS:
         7: "/etc/php.d/99-aspects_php.ini"
       OracleLinux:
@@ -160,8 +166,10 @@ Then make sure you have removed any custom configuration for that module from th
         Ubuntu:
           1604: "php-dev"
           1804: "php-dev"
+          2004: "php-dev"
         Debian:
           9: "php-dev"
+          10: "php-dev"
         CentOS:
           7: "php-devel"
         OracleLinux:
@@ -171,8 +179,10 @@ Then make sure you have removed any custom configuration for that module from th
         Ubuntu:
           1604: "php-pear"
           1804: "php-pear"
+          2004: "php-pear"
         Debian:
           9: "php-pear"
+          10: "php-pear"
         CentOS:
           7: "php-pear"
         OracleLinux:
@@ -182,15 +192,19 @@ Then make sure you have removed any custom configuration for that module from th
         Ubuntu:
           1604: "php-curl"
           1804: "php-curl"
+          2004: "php-curl"
         Debian:
           9: "php-curl"
+          10: "php-curl"
       phpgd:
         state: "present"
         Ubuntu:
           1604: "php-gd"
           1804: "php-gd"
+          2004: "php-gd"
         Debian:
           9: "php-gd"
+          10: "php-gd"
         CentOS:
           7: "php-gd"
         OracleLinux:
@@ -202,8 +216,10 @@ Then make sure you have removed any custom configuration for that module from th
           Ubuntu:
             1604: "/etc/php/7.0/apache2/conf.d/99-aspects_php.ini"
             1804: "/etc/php/7.2/apache2/conf.d/99-aspects_php.ini"
+            2004: "/etc/php/7.4/apache2/conf.d/99-aspects_php.ini"
           Debian:
             9: "/etc/php/7.0/apache2/conf.d/99-aspects_php.ini"
+            10: "/etc/php/7.3/apache2/conf.d/99-aspects_php.ini"
           CentOS:
             7: "/etc/php.d/99-aspects_php.ini"
           OracleLinux:
@@ -217,8 +233,10 @@ Then make sure you have removed any custom configuration for that module from th
           Ubuntu:
             1604: "/etc/php/7.0/cli/conf.d/99-aspects_php.ini"
             1804: "/etc/php/7.2/cli/conf.d/99-aspects_php.ini"
+            2004: "/etc/php/7.4/cli/conf.d/99-aspects_php.ini"
           Debian:
             9: "/etc/php/7.0/cli/conf.d/99-aspects_php.ini"
+            10: "/etc/php/7.3/cli/conf.d/99-aspects_php.ini"
         section: "PHP"
         name: "allow_url_fopen"
         value: "On"
@@ -228,8 +246,10 @@ Then make sure you have removed any custom configuration for that module from th
           Ubuntu:
             1604: "/etc/php/7.0/apache2/conf.d/99-aspects_php.ini"
             1804: "/etc/php/7.2/apache2/conf.d/99-aspects_php.ini"
+            2004: "/etc/php/7.4/apache2/conf.d/99-aspects_php.ini"
           Debian:
             9: "/etc/php/7.0/apache2/conf.d/99-aspects_php.ini"
+            10: "/etc/php/7.3/apache2/conf.d/99-aspects_php.ini"
           CentOS:
             7: "/etc/php.d/99-aspects_php.ini"
           OracleLinux:
@@ -243,8 +263,10 @@ Then make sure you have removed any custom configuration for that module from th
           Ubuntu:
             1604: "/etc/php/7.0/cli/conf.d/99-aspects_php.ini"
             1804: "/etc/php/7.2/cli/conf.d/99-aspects_php.ini"
+            2004: "/etc/php/7.4/cli/conf.d/99-aspects_php.ini"
           Debian:
             9: "/etc/php/7.0/cli/conf.d/99-aspects_php.ini"
+            10: "/etc/php/7.3/cli/conf.d/99-aspects_php.ini"
         section: "PHP"
         name: "error_log"
         value: "syslog"
@@ -254,8 +276,10 @@ Then make sure you have removed any custom configuration for that module from th
           Ubuntu:
             1604: "/etc/php/7.0/cli/conf.d/99-aspects_php.ini"
             1804: "/etc/php/7.2/cli/conf.d/99-aspects_php.ini"
+            2004: "/etc/php/7.4/cli/conf.d/99-aspects_php.ini"
           Debian:
             9: "/etc/php/7.0/cli/conf.d/99-aspects_php.ini"
+            10: "/etc/php/7.3/cli/conf.d/99-aspects_php.ini"
           CentOS:
             7: "/etc/php.d/99-aspects_php.ini"
           OracleLinux:

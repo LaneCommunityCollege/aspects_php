@@ -7,6 +7,8 @@
     enabled: yes
   tags:
   - aspects_php
+  - aspects_php_config
+  - aspects_php_remove_package_managed_ini_files
 
 - name: reload apache2
   service:
@@ -15,6 +17,8 @@
     enabled: yes
   tags:
   - aspects_php
+  - aspects_php_config
+  - aspects_php_remove_package_managed_ini_files
 
 - name: start apache2
   service:
@@ -23,6 +27,8 @@
     enabled: yes
   tags:
   - aspects_php
+  - aspects_php_config
+  - aspects_php_remove_package_managed_ini_files
 
 - name: stop apache2
   service:
@@ -30,6 +36,8 @@
     state: stopped
   tags:
   - aspects_php
+  - aspects_php_config
+  - aspects_php_remove_package_managed_ini_files
   
 - name: restart httpd
   service:
@@ -38,6 +46,8 @@
     enabled: yes
   tags:
   - aspects_php
+  - aspects_php_config
+  - aspects_php_remove_package_managed_ini_files
 
 - name: reload httpd
   service:
@@ -46,6 +56,8 @@
     enabled: yes
   tags:
   - aspects_php
+  - aspects_php_config
+  - aspects_php_remove_package_managed_ini_files
 
 - name: start httpd
   service:
@@ -54,6 +66,8 @@
     enabled: yes
   tags:
   - aspects_php
+  - aspects_php_config
+  - aspects_php_remove_package_managed_ini_files
 
 - name: stop httpd
   service:
@@ -61,3 +75,5 @@
     state: stopped
   tags:
   - aspects_php
+  - aspects_php_config
+  - aspects_php_remove_package_managed_ini_files

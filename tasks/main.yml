@@ -3,3 +3,5 @@
   when: aspects_php_enabled == True
   tags:
   - aspects_php
+  - aspects_php_config
+  - aspects_php_remove_package_managed_ini_files
